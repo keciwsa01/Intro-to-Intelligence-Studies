@@ -77,6 +77,33 @@
             color: white;
         }
 
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #1e3c72;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e3c72;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .home-button:hover {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(30, 60, 114, 0.3);
+        }
+
         .tab-content {
             display: none;
             background: rgba(255, 255, 255, 0.95);
@@ -366,6 +393,10 @@
             </div>
         </div>
 
+        <div class="home-button" onclick="goHome()">
+            Back
+        </div>
+
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="showTab('overview')">📖 Overview</button>
             <button class="tab-btn" onclick="showTab('timeline')">⏰ Timeline</button>
@@ -606,7 +637,14 @@
         let timelineViewed = 0;
         let startTime = Date.now();
 
+        let currentTab = 'overview';
+        let previousTab = 'overview';
+
         function showTab(tabName) {
+            // Store previous tab
+            previousTab = currentTab;
+            currentTab = tabName;
+            
             // Hide all tab contents
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -620,6 +658,11 @@
             event.target.classList.add('active');
             
             updateProgress();
+        }
+
+        function goHome() {
+            // This will be connected to your home page later
+            alert('Home button clicked! This will navigate to your home page when you create it.');
         }
 
         function toggleAnswer(questionElement) {
@@ -682,5 +725,5 @@
         animateTimeline();
         updateStats();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e8d4bed2c6bfc4',t:'MTc1NTA5NDU5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9430523bb53af',t:'MTc1NTA5OTExMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
