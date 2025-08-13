@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Intelligence Studies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d3748 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #1a2332;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .header .subtitle {
+            color: #4a5568;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .header .description {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .info-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .info-card h3 {
+            color: #1a2332;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .module-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .module-title {
+            color: #1a2332;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .module-description {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .module-topics {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .module-topics h4 {
+            color: #1a2332;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .module-topics ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .module-topics li {
+            color: #555;
+            font-size: 0.9rem;
+            padding: 3px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .module-topics li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer h3 {
+            color: #1a2332;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .module-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .module-card:nth-child(1) { animation-delay: 0.1s; }
+        .module-card:nth-child(2) { animation-delay: 0.2s; }
+        .module-card:nth-child(3) { animation-delay: 0.3s; }
+        .module-card:nth-child(4) { animation-delay: 0.4s; }
+        .module-card:nth-child(5) { animation-delay: 0.5s; }
+        .module-card:nth-child(6) { animation-delay: 0.6s; }
+        .module-card:nth-child(7) { animation-delay: 0.7s; }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🕵️ Introduction to Intelligence Studies</h1>
+            <p class="subtitle">Exploring the World of Intelligence Analysis and Operations</p>
+            <p class="description">
+                This comprehensive course examines the evolution, structure, and operations of intelligence agencies, 
+                with particular focus on the U.S. Intelligence Community. Students will explore collection methods, 
+                analysis techniques, policy implications, and ethical considerations in modern intelligence work.
+            </p>
+        </div>
+
+        <div class="course-info">
+            <div class="info-card">
+                <span class="icon">🎯</span>
+                <h3>Interactive Learning</h3>
+                <p>Engaging study materials and practical case studies</p>
+            </div>
+            <div class="info-card">
+                <span class="icon">🔍</span>
+                <h3>Real-World Focus</h3>
+                <p>Current events and historical analysis combined</p>
+            </div>
+            <div class="info-card">
+                <span class="icon">🌐</span>
+                <h3>Global Perspective</h3>
+                <p>International intelligence operations and cooperation</p>
+            </div>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-card" onclick="navigateToModule(1)">
+                <div class="module-number">Module 1</div>
+                <div class="module-title">Introduction & Development of US Intelligence</div>
+                <div class="module-description">
+                    Explore the historical foundations of American intelligence from the Revolutionary War through the creation of the CIA.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>Early American intelligence operations</li>
+                        <li>Pearl Harbor and intelligence failures</li>
+                        <li>OSS formation and legacy</li>
+                        <li>CIA establishment and National Security Act</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(2)">
+                <div class="module-number">Module 2</div>
+                <div class="module-title">US Intelligence Community</div>
+                <div class="module-description">
+                    Examine the structure, roles, and relationships within the modern U.S. Intelligence Community.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>17 IC agencies and their missions</li>
+                        <li>Director of National Intelligence role</li>
+                        <li>Inter-agency coordination challenges</li>
+                        <li>Budget and resource allocation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(3)">
+                <div class="module-number">Module 3</div>
+                <div class="module-title">Intelligence Collection</div>
+                <div class="module-description">
+                    Discover the various methods and technologies used to gather intelligence from multiple sources.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>HUMINT: Human intelligence operations</li>
+                        <li>SIGINT: Signals intelligence collection</li>
+                        <li>GEOINT: Geospatial intelligence analysis</li>
+                        <li>OSINT: Open source intelligence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(4)">
+                <div class="module-number">Module 4</div>
+                <div class="module-title">Analysis, Counterintelligence & Covert Action</div>
+                <div class="module-description">
+                    Learn about intelligence analysis techniques, counterintelligence operations, and covert action programs.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>Analytical tradecraft and methods</li>
+                        <li>Cognitive biases in analysis</li>
+                        <li>Counterintelligence operations</li>
+                        <li>Covert action authorities and oversight</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(5)">
+                <div class="module-number">Module 5</div>
+                <div class="module-title">Policy Making & Intelligence Oversight</div>
+                <div class="module-description">
+                    Understand how intelligence informs policy decisions and the mechanisms for democratic oversight.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>Intelligence-policy relationship</li>
+                        <li>Congressional oversight mechanisms</li>
+                        <li>Executive branch supervision</li>
+                        <li>Judicial review and FISA courts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(6)">
+                <div class="module-number">Module 6</div>
+                <div class="module-title">Cyber Intelligence & Transnational Issues</div>
+                <div class="module-description">
+                    Explore modern challenges including cyber threats, terrorism, and global intelligence cooperation.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>Cyber threat landscape</li>
+                        <li>Digital forensics and attribution</li>
+                        <li>Transnational organized crime</li>
+                        <li>International intelligence sharing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="navigateToModule(7)">
+                <div class="module-number">Module 7</div>
+                <div class="module-title">Ethical & Moral Issues in Intelligence</div>
+                <div class="module-description">
+                    Examine the ethical dilemmas and moral considerations facing intelligence professionals and democratic societies.
+                </div>
+                <div class="module-topics">
+                    <h4>Key Topics</h4>
+                    <ul>
+                        <li>Privacy vs. security balance</li>
+                        <li>Torture and enhanced interrogation</li>
+                        <li>Whistleblowing and accountability</li>
+                        <li>Democratic values in intelligence work</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateToModule(moduleNumber) {
+            // Navigate to the specific module page
+            window.location.href = `module${moduleNumber}.html`;
+        }
+
+        // Add some visual flair when cards are clicked
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-8px)';
+                }, 150);
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9870d05adbfa7',t:'MTc1NTEwMTg5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
