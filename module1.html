@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 - Introduction & Development of US Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d3748 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #1a2332;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .header .module-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .header .description {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .topic-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .topic-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .topic-title {
+            color: #1a2332;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .topic-description {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .topic-type {
+            background: #f8f9fa;
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .source-button {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .source-button:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .topic-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .topic-card:nth-child(1) { animation-delay: 0.1s; }
+        .topic-card:nth-child(2) { animation-delay: 0.2s; }
+        .topic-card:nth-child(3) { animation-delay: 0.3s; }
+        .topic-card:nth-child(4) { animation-delay: 0.4s; }
+        .topic-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topic-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goBack()">← Back to Course Overview</button>
+        
+        <div class="header">
+            <div class="module-number">Module 1</div>
+            <h1>Introduction & Development of US Intelligence</h1>
+            <p class="description">
+                Explore the historical foundations of American intelligence from the Revolutionary War through the creation of the CIA. 
+                This module covers early intelligence operations, major failures and successes, and the evolution of modern intelligence agencies.
+            </p>
+        </div>
+
+        <div class="topics-grid">
+            <div class="topic-card" onclick="navigateToPage('cia-history-study-guide.html')">
+                <span class="topic-icon">🏛️</span>
+                <div class="topic-title">CIA History Study Guide</div>
+                <div class="topic-description">
+                    Comprehensive overview of the Central Intelligence Agency's formation, evolution, and key historical moments from 1947 to present.
+                </div>
+                <button class="source-button" onclick="event.stopPropagation(); window.open('https://example.com/cia-source', '_blank')">View Source</button>
+            </div>
+
+            <div class="topic-card" onclick="navigateToPage('us-intelligence-agencies-history.html')">
+                <span class="topic-icon">🏢</span>
+                <div class="topic-title">History & Collective Missions of US Intelligence Agencies</div>
+                <div class="topic-description">
+                    Examine the development and interconnected roles of all 17 Intelligence Community agencies and their collaborative missions.
+                </div>
+                <button class="source-button" onclick="event.stopPropagation(); window.open('https://example.com/agencies-source', '_blank')">View Source</button>
+            </div>
+
+            <div class="topic-card" onclick="navigateToPage('us-anti-isolationism.html')">
+                <span class="topic-icon">🌍</span>
+                <div class="topic-title">US Anti-Isolationism & Intelligence</div>
+                <div class="topic-description">
+                    How America's shift from isolationism to global engagement shaped the need for comprehensive intelligence capabilities.
+                </div>
+                <button class="source-button" onclick="event.stopPropagation(); window.open('https://example.com/isolationism-source', '_blank')">View Source</button>
+            </div>
+
+            <div class="topic-card" onclick="navigateToPage('surprise-warfare-analysis.html')">
+                <span class="topic-icon">⚡</span>
+                <div class="topic-title">Surprise in Modern Warfare & Great-Power Competition</div>
+                <div class="topic-description">
+                    Analysis of how surprise attacks and unexpected developments have shaped military history and continue to influence modern strategic planning in an era of great-power competition.
+                </div>
+                <button class="source-button" onclick="event.stopPropagation(); window.open('https://example.com/warfare-source', '_blank')">View Source</button>
+            </div>
+
+            <div class="topic-card" onclick="navigateToPage('module1-readings.html')">
+                <span class="topic-icon">📚</span>
+                <div class="topic-title">Required Readings: Chapters 1 & 2</div>
+                <div class="topic-description">
+                    Essential reading materials covering the foundations of intelligence studies and early American intelligence history.
+                </div>
+                <div class="topic-type">Course Readings</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function navigateToPage(pageName) {
+            // Navigate to the specific page
+            window.location.href = pageName;
+        }
+
+        function goBack() {
+            // Go back to the main course page
+            window.location.href = 'index.html';
+        }
+
+        // Add visual feedback when cards are clicked
+        document.querySelectorAll('.topic-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-8px)';
+                }, 150);
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e9ad285635dd1e',t:'MTc1NTEwMzQ1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
