@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIA History Study Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e3c72;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn:hover {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 50%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .timeline-date {
+            background: #1e3c72;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            width: 16px;
+            height: 16px;
+            background: #1e3c72;
+            border: 4px solid white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #1e3c72;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #1e3c72;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #2a5298;
+            font-size: 1.4rem;
+            margin: 20px 0 15px 0;
+        }
+
+        .key-points {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #1e3c72;
+            margin: 15px 0;
+        }
+
+        .key-points ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .key-points li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #1e3c72;
+        }
+
+        .question {
+            font-weight: bold;
+            color: #1e3c72;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .question::after {
+            content: '▼';
+            transition: transform 0.3s ease;
+            color: #1e3c72;
+        }
+
+        .question.collapsed::after {
+            transform: rotate(-90deg);
+        }
+
+        .answer {
+            color: #666;
+            line-height: 1.6;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        .answer.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            height: 8px;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .study-stats {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            color: white;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                padding-left: 50px !important;
+                padding-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 20px !important;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 CIA History Study Guide</h1>
+            <p>Master the birth and evolution of America's Central Intelligence Agency</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="study-stats">
+            <div class="stat">
+                <span class="stat-number" id="questionsAnswered">0</span>
+                <span class="stat-label">Questions Answered</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="timelineViewed">0</span>
+                <span class="stat-label">Timeline Events Viewed</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number" id="studyTime">0</span>
+                <span class="stat-label">Minutes Studied</span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">📖 Overview</button>
+            <button class="tab-btn" onclick="showTab('timeline')">⏰ Timeline</button>
+            <button class="tab-btn" onclick="showTab('questions')">❓ Study Questions</button>
+            <button class="tab-btn" onclick="showTab('key-figures')">👥 Key Figures</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <div class="section">
+                <h2>🎯 Study Overview</h2>
+                <p>This interactive study guide covers the complex relationship between secrecy, democracy, and the birth of the CIA. You'll explore three critical periods that shaped American intelligence operations.</p>
+                
+                <div class="key-points">
+                    <h3>Main Themes</h3>
+                    <ul>
+                        <li>Tension between democratic accountability and secret government power</li>
+                        <li>Evolution of U.S. intelligence from wartime-only to permanent operations</li>
+                        <li>Impact of Pearl Harbor on American intelligence strategy</li>
+                        <li>Legacy of the OSS in shaping CIA culture and operations</li>
+                        <li>Cold War influence on intelligence agency development</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>Key Periods</h3>
+                    <ul>
+                        <li><strong>American Revolution to 1930s:</strong> Secret intelligence used primarily during wartime</li>
+                        <li><strong>1940s - Late Creation of CIA:</strong> Pearl Harbor exposes intelligence gaps, leads to OSS and CIA</li>
+                        <li><strong>1947 - Start of Cold War:</strong> Truman Doctrine, Marshall Plan, and National Security Act</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="timeline" class="tab-content">
+            <div class="section">
+                <h2>⏰ Interactive Timeline</h2>
+                <p>Click on any event to explore it in detail. Events are arranged chronologically to show the progression toward CIA creation.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1776-1930s</div>
+                            <div class="timeline-title">Early American Intelligence</div>
+                            <div class="timeline-description">Secret intelligence used primarily during wartime periods. No permanent peacetime intelligence agency existed.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1940</div>
+                            <div class="timeline-title">Donovan Observes MI6</div>
+                            <div class="timeline-description">FDR sends William "Wild Bill" Donovan to London to observe British MI6 operations, leading to plans for American secret service.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">December 7, 1941</div>
+                            <div class="timeline-title">Pearl Harbor Attack</div>
+                            <div class="timeline-description">Japanese surprise attack exposes critical U.S. intelligence failures - political failure to imagine the attack and insufficient intelligence on timing/location.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1941-1945</div>
+                            <div class="timeline-title">Office of Strategic Services (OSS)</div>
+                            <div class="timeline-description">First centralized U.S. intelligence agency. Conducted special operations, research & analysis, and secret intelligence. Many OSS members later joined CIA.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">March 1947</div>
+                            <div class="timeline-title">Truman Doctrine</div>
+                            <div class="timeline-description">U.S. pledges to aid any free nation resisting subjugation by external pressure or internal armed minorities - sets stage for Cold War intelligence needs.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">June 1947</div>
+                            <div class="timeline-title">Marshall Plan</div>
+                            <div class="timeline-description">Economic reconstruction aid to Western Europe to counter Soviet influence - demonstrates need for intelligence to support foreign policy.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+
+                    <div class="timeline-item" onclick="viewTimelineEvent(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">July 1947</div>
+                            <div class="timeline-title">National Security Act & CIA Creation</div>
+                            <div class="timeline-description">Officially creates the CIA and reorganizes military structure for Cold War. Establishes permanent peacetime intelligence capability.</div>
+                        </div>
+                        <div class="timeline-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="questions" class="tab-content">
+            <div class="section">
+                <h2>❓ Discussion Questions</h2>
+                <p>Test your understanding with these thought-provoking questions. Click each question to reveal the answer.</p>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        What were the key intelligence failures that Pearl Harbor exposed, and how did they justify the creation of a permanent intelligence agency?
+                    </div>
+                    <div class="answer">
+                        Pearl Harbor exposed two critical intelligence failures: (1) Political failure - the inability to imagine Japan capable of such a bold attack on American soil, and (2) Intelligence failure - insufficient intelligence gathering to pinpoint the timing and location of the attack. These failures demonstrated that the U.S. needed a permanent intelligence agency that could operate during both peace and war, rather than relying on ad-hoc wartime intelligence efforts. The attack ended American isolationism and showed that threats could emerge suddenly, requiring constant vigilance and intelligence gathering capabilities.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        How did the OSS establish the foundation for CIA operations and culture?
+                    </div>
+                    <div class="answer">
+                        The OSS created the foundation for the CIA in three key ways: (1) Personnel continuity - many OSS members joined the CIA, including four future directors, providing institutional knowledge and experience; (2) Cultural identity - heavy recruitment from Ivy League schools fostered camaraderie but also created an elitist culture that would characterize the CIA; (3) Integrated mission - the OSS combined intelligence gathering and covert operations under one organization, establishing the model that the CIA would follow, unlike other countries that often separated these functions.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        What was the relationship between the 1947 Truman Doctrine, Marshall Plan, and the creation of the CIA?
+                    </div>
+                    <div class="answer">
+                        These three initiatives were interconnected responses to the emerging Cold War threat. The Truman Doctrine (March 1947) committed the U.S. to supporting free nations against communist pressure, requiring intelligence to identify threats and opportunities. The Marshall Plan (June 1947) provided economic aid to rebuild Western Europe and counter Soviet influence, necessitating intelligence to monitor its effectiveness and Soviet responses. The National Security Act (July 1947) created the CIA to provide the intelligence capabilities needed to support these new foreign policy commitments. Together, they represented a comprehensive strategy of containment that required permanent intelligence capabilities.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        How does Gina Haspel's nomination controversy illustrate the ongoing tension between democracy and secret government power?
+                    </div>
+                    <div class="answer">
+                        Haspel's nomination highlighted the fundamental tension between democratic accountability and the need for secret operations. Her involvement in enhanced interrogation techniques and destruction of evidence raised questions about whether intelligence officials should be held accountable for controversial methods used in the name of national security. The confirmation disputes demonstrated how democratic processes (Senate confirmation) can clash with the secrecy required for intelligence operations. This reflects the broader challenge of maintaining democratic oversight over agencies that must operate in secret to be effective.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        What opposition did William Donovan face when proposing an American secret service, and what does this reveal about institutional politics?
+                    </div>
+                    <div class="answer">
+                        Donovan faced opposition from two key sources: J. Edgar Hoover feared the new agency would undermine the FBI's domestic intelligence role, and the Army opposed civilian intrusion into what they considered military intelligence territory. This opposition reveals how institutional politics and bureaucratic turf wars can impede national security reforms. Each existing agency sought to protect its jurisdiction and resources, demonstrating that creating new government institutions often requires overcoming resistance from established bureaucracies that see their power and influence threatened.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        How did the CIA's reputation and public perception change from the 1940s through the post-9/11 period?
+                    </div>
+                    <div class="answer">
+                        The CIA's reputation followed a cyclical pattern: (1) 1940s-1950s: High autonomy and public trust during the early Cold War as Congress allowed broad operations against communism; (2) 1960s-1970s: Increased scrutiny and declining trust as the public began questioning Cold War policies and CIA operations; (3) 1980s: Reputation restored under Reagan's Cold War "reboot," with renewed confidence in secret capabilities; (4) Post-9/11: Mixed legacy as intelligence failures were exposed alongside controversial programs like enhanced interrogation, leading to renewed debates about accountability and effectiveness.
+                    </div>
+                </div>
+
+                <div class="question-card">
+                    <div class="question collapsed" onclick="toggleAnswer(this)">
+                        What were the three main functions of the OSS, and how did each contribute to intelligence capabilities?
+                    </div>
+                    <div class="answer">
+                        The OSS had three main functions: (1) Special Operations - small, elite teams like the Jedburgh teams conducted guerrilla warfare and aided resistance movements, providing the capability for covert action behind enemy lines; (2) Research & Analysis Branch - D.C.-based historians and academics provided battlefield intelligence through careful analysis, earning the nickname "the quiet terrorism of the academics"; (3) Secret Intelligence Branch - established contact with sources like German officers plotting to assassinate Hitler, demonstrating the importance of human intelligence networks. Together, these functions created a comprehensive intelligence capability combining analysis, collection, and action.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="key-figures" class="tab-content">
+            <div class="section">
+                <h2>👥 Key Figures</h2>
+                
+                <div class="key-points">
+                    <h3>🎖️ Gina Haspel</h3>
+                    <ul>
+                        <li>CIA Director from May 2018</li>
+                        <li>Controversial nomination due to involvement in enhanced interrogation</li>
+                        <li>Oversaw interrogation facilities in Thailand</li>
+                        <li>Ordered destruction of interrogation videotapes</li>
+                        <li>Symbolizes tension between democracy and secret power</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>🎯 William "Wild Bill" Donovan</h3>
+                    <ul>
+                        <li>Lawyer sent by FDR to observe British MI6 in 1940</li>
+                        <li>Drafted plan for American secret service modeled on MI6</li>
+                        <li>Appointed Coordinator of Information in 1941</li>
+                        <li>Led the Office of Strategic Services (OSS) during WWII</li>
+                        <li>Considered the father of American central intelligence</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>🏛️ Franklin D. Roosevelt</h3>
+                    <ul>
+                        <li>Sent Donovan to London to study British intelligence</li>
+                        <li>Appointed Donovan as Coordinator of Information</li>
+                        <li>Supported creation of OSS after Pearl Harbor</li>
+                        <li>Recognized need for centralized intelligence coordination</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>🕵️ J. Edgar Hoover</h3>
+                    <ul>
+                        <li>FBI Director who opposed Donovan's intelligence plans</li>
+                        <li>Feared new agency would undermine FBI's role</li>
+                        <li>Represented institutional resistance to intelligence reform</li>
+                        <li>Demonstrated bureaucratic turf wars in government</li>
+                    </ul>
+                </div>
+
+                <div class="key-points">
+                    <h3>🇺🇸 Harry S. Truman</h3>
+                    <ul>
+                        <li>President who signed the National Security Act of 1947</li>
+                        <li>Announced the Truman Doctrine in March 1947</li>
+                        <li>Oversaw the transition from wartime OSS to peacetime CIA</li>
+                        <li>Established framework for Cold War intelligence operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let questionsAnswered = 0;
+        let timelineViewed = 0;
+        let startTime = Date.now();
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab and activate button
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            updateProgress();
+        }
+
+        function toggleAnswer(questionElement) {
+            const answer = questionElement.nextElementSibling;
+            const isCollapsed = questionElement.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                questionElement.classList.remove('collapsed');
+                answer.classList.add('show');
+                questionsAnswered++;
+                updateStats();
+            } else {
+                questionElement.classList.add('collapsed');
+                answer.classList.remove('show');
+            }
+        }
+
+        function viewTimelineEvent(eventElement) {
+            eventElement.style.transform = 'scale(1.05)';
+            eventElement.style.boxShadow = '0 12px 35px rgba(30, 60, 114, 0.3)';
+            
+            setTimeout(() => {
+                eventElement.style.transform = 'scale(1)';
+                eventElement.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
+            }, 300);
+            
+            timelineViewed++;
+            updateStats();
+        }
+
+        function updateStats() {
+            document.getElementById('questionsAnswered').textContent = questionsAnswered;
+            document.getElementById('timelineViewed').textContent = timelineViewed;
+            
+            const studyTime = Math.floor((Date.now() - startTime) / 60000);
+            document.getElementById('studyTime').textContent = studyTime;
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const totalQuestions = 7;
+            const totalTimelineEvents = 7;
+            const progress = ((questionsAnswered / totalQuestions) + (timelineViewed / totalTimelineEvents)) / 2 * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Animate timeline items on load
+        function animateTimeline() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                item.style.animationDelay = (index * 0.2) + 's';
+            });
+        }
+
+        // Update study time every minute
+        setInterval(updateStats, 60000);
+
+        // Initialize
+        animateTimeline();
+        updateStats();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e8d4bed2c6bfc4',t:'MTc1NTA5NDU5NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
