@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U.S. Intelligence Community Study Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d3748 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #1a2332;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .header .subtitle {
+            color: #4a5568;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            color: #1a2332;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .overview-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .overview-item h3 {
+            color: #1a2332;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .overview-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .ic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ic-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .ic-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .ic-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .ic-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .ic-table tr:nth-child(even):hover {
+            background: #f0f0f0;
+        }
+
+        .member-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid #667eea;
+        }
+
+        .member-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .member-title {
+            color: #1a2332;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .member-year {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .member-details {
+            color: #666;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .member-card.expanded .member-details {
+            max-height: 200px;
+            margin-top: 15px;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .member-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .reflection-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .reflection-section h2 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .reflection-question {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reflection-question:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .question-text {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .question-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
+        }
+
+        .reflection-question.expanded .question-answer {
+            max-height: 500px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .test-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .test-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ic-table {
+                font-size: 0.9rem;
+            }
+
+            .ic-table th,
+            .ic-table td {
+                padding: 10px 8px;
+            }
+
+            .member-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goBack()">← Back to Module 1</button>
+        
+        <div class="header">
+            <h1>🏛️ U.S. Intelligence Community Study Guide</h1>
+            <p class="subtitle">Comprehensive Overview of America's 18 Intelligence Elements</p>
+        </div>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <h3>🏢 Structure</h3>
+                    <p>The Intelligence Community (I.C.) consists of 18 elements working together to protect national security.</p>
+                </div>
+                <div class="overview-item">
+                    <h3>🎯 Mission</h3>
+                    <p>Protect national security through intelligence collection, analysis, and dissemination to decision-makers.</p>
+                </div>
+                <div class="overview-item">
+                    <h3>📜 Historical Roots</h3>
+                    <p>From the Culper Ring during the Revolutionary War to today's cyber, satellite, and scientific operations.</p>
+                </div>
+                <div class="overview-item">
+                    <h3>⚡ Core Function</h3>
+                    <p>Provide timely, relevant intelligence to the President, policymakers, and military commanders.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Intelligence Community Members</h2>
+            <table class="ic-table">
+                <thead>
+                    <tr>
+                        <th>Year Est.</th>
+                        <th>Agency</th>
+                        <th>Full Name</th>
+                        <th>Primary Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1882</td><td>ONI</td><td>Naval Intelligence Enterprise</td><td>Maritime domain awareness</td></tr>
+                    <tr><td>1885</td><td>Army Intel</td><td>Army Intelligence</td><td>Military intelligence globally</td></tr>
+                    <tr><td>1908</td><td>FBI</td><td>FBI Intelligence Branch</td><td>Law enforcement intelligence</td></tr>
+                    <tr><td>1915</td><td>CGIS</td><td>Coast Guard Intelligence</td><td>Maritime security & ports</td></tr>
+                    <tr><td>1939</td><td>MCIA</td><td>Marine Corps Intelligence</td><td>Tactical battlefield intelligence</td></tr>
+                    <tr><td>1945</td><td>INR</td><td>State Dept. Intelligence & Research</td><td>Diplomatic intelligence</td></tr>
+                    <tr><td>1947</td><td>CIA</td><td>Central Intelligence Agency</td><td>HUMINT & covert operations</td></tr>
+                    <tr><td>1948</td><td>AF ISR</td><td>Air Force Intelligence, Surveillance & Reconnaissance</td><td>Airborne & space intelligence</td></tr>
+                    <tr><td>1952</td><td>NSA</td><td>National Security Agency</td><td>Signals intelligence & cybersecurity</td></tr>
+                    <tr><td>1961</td><td>DIA</td><td>Defense Intelligence Agency</td><td>Military intelligence analysis</td></tr>
+                    <tr><td>1961</td><td>NRO</td><td>National Reconnaissance Office</td><td>Spy satellites & reconnaissance</td></tr>
+                    <tr><td>1973</td><td>DEA Intel</td><td>DEA Intelligence Division</td><td>Drug interdiction intelligence</td></tr>
+                    <tr><td>1977</td><td>DOE OICI</td><td>Energy Dept. Intelligence & Counterintelligence</td><td>Nuclear & scientific threats</td></tr>
+                    <tr><td>1996</td><td>NGA</td><td>National Geospatial-Intelligence Agency</td><td>Geospatial intelligence</td></tr>
+                    <tr><td>2003</td><td>DHS I&A</td><td>Homeland Security Intelligence & Analysis</td><td>Domestic threat intelligence</td></tr>
+                    <tr><td>2004</td><td>Treasury OIA</td><td>Treasury Intelligence & Analysis</td><td>Financial intelligence</td></tr>
+                    <tr><td>2005</td><td>ODNI</td><td>Office of Director of National Intelligence</td><td>IC coordination & integration</td></tr>
+                    <tr><td>2019</td><td>USSF Intel</td><td>U.S. Space Force Intelligence</td><td>Space domain awareness</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Detailed Member Profiles</h2>
+            <div class="members-grid">
+            
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">1. Naval Intelligence Enterprise</div>
+                    <div class="member-year">1882</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Overseen by Director of Naval Intelligence<br>
+                    • Specializes in maritime domain awareness and naval adversary analysis<br>
+                    • Maintains National Acoustic Intelligence Laboratory<br>
+                    • The oldest continuously operating intelligence service in the U.S.
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">2. Army Intelligence</div>
+                    <div class="member-year">1885</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Largest intel workforce in U.S.<br>
+                    • Operates in 180+ locations across 45+ countries<br>
+                    • Provides tactical and strategic military intelligence globally<br>
+                    • Supports ground operations and force protection worldwide
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">3. FBI Intelligence Branch</div>
+                    <div class="member-year">1908</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Integrates law enforcement and intelligence<br>
+                    • Shares intel with local, state, and federal partners<br>
+                    • Manages strategies and field operations through the Intelligence Branch<br>
+                    • Focuses on counterterrorism, counterintelligence, and criminal threats
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">4. Coast Guard Intelligence</div>
+                    <div class="member-year">1915</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Monitors coasts, ports, and waterways<br>
+                    • Integrates AI and ML for rapid maritime threat detection<br>
+                    • Supports national and disaster response intelligence<br>
+                    • Unique dual role in law enforcement and national security
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">5. Marine Corps Intelligence</div>
+                    <div class="member-year">1939</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Functions through MCISRE<br>
+                    • Provides tactical battlefield intelligence<br>
+                    • Uses drones, radars, sensors<br>
+                    • Modernizing under Force Design 2030<br>
+                    • Supports expeditionary operations and amphibious warfare
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">6. Department of State – INR</div>
+                    <div class="member-year">1945</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Delivers diplomatic intelligence to U.S. policymakers and diplomats<br>
+                    • Oldest civilian intel component<br>
+                    • Supports foreign affairs objectives<br>
+                    • Provides independent analysis on global political developments
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">7. Central Intelligence Agency (CIA)</div>
+                    <div class="member-year">1947</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Performs HUMINT collection, all-source analysis, and covert action<br>
+                    • Home to The World Factbook<br>
+                    • Reports directly to the President<br>
+                    • America's premier foreign intelligence service with global reach
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">8. Air Force ISR</div>
+                    <div class="member-year">1948</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Utilizes airborne, space, and cyberspace sensors<br>
+                    • Supports global operations and targeting<br>
+                    • Led by Sixteenth Air Force for information warfare<br>
+                    • Provides intelligence for air and space operations
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">9. National Security Agency (NSA)</div>
+                    <div class="member-year">1952</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Handles signals intelligence (SIGINT) and cybersecurity operations<br>
+                    • Leads Cybersecurity Collaboration Center<br>
+                    • Partners with industry and allies<br>
+                    • America's cryptologic organization protecting national communications
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">10. Defense Intelligence Agency (DIA)</div>
+                    <div class="member-year">1961</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Provides all-source military intelligence<br>
+                    • Operates across combat and non-combat missions<br>
+                    • Runs "DIA Connections" podcast<br>
+                    • Serves as the primary source of foreign military intelligence for the Department of Defense
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">11. National Reconnaissance Office (NRO)</div>
+                    <div class="member-year">1961</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Designs and operates U.S. spy satellites<br>
+                    • Ensures global situational awareness<br>
+                    • Remained classified until 1992<br>
+                    • Provides space-based intelligence collection capabilities for national security
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">12. DEA Intelligence</div>
+                    <div class="member-year">1973</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Supports drug interdiction through analysis and partner engagement<br>
+                    • Operates 93 foreign offices<br>
+                    • Focuses on transnational criminal networks<br>
+                    • Combats international drug trafficking and related crimes
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">13. Department of Energy – OICI</div>
+                    <div class="member-year">1977</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Uses scientific expertise for national security intelligence<br>
+                    • Manages 17 national labs<br>
+                    • Addresses nuclear, cyber, and tech threats<br>
+                    • Protects nuclear weapons secrets and energy infrastructure
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">14. National Geospatial-Intelligence Agency</div>
+                    <div class="member-year">1996</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Provides geospatial intelligence from seabed to space<br>
+                    • Supports disaster response and military targeting<br>
+                    • Employs cutting-edge Earth mapping tech<br>
+                    • Creates maps and imagery analysis for national security
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">15. DHS Office of Intelligence and Analysis</div>
+                    <div class="member-year">2003</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Bridges local, state, federal intelligence sharing<br>
+                    • Created post-9/11 to unify security data<br>
+                    • Only I.C. member mandated to engage local partners<br>
+                    • Focuses on homeland security threats and information sharing
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">16. Treasury Office of Intelligence and Analysis</div>
+                    <div class="member-year">2004</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Tracks terror financing and financial crimes<br>
+                    • Embedded in the Department of the Treasury<br>
+                    • Informs sanctions and economic policy<br>
+                    • Combats illicit finance and supports economic security
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">17. Office of the Director of National Intelligence</div>
+                    <div class="member-year">2005</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Leads integration of all 18 I.C. members<br>
+                    • Manages the National Intelligence Program<br>
+                    • Houses mission centers for cyber, bio, and strategic threats<br>
+                    • Coordinates and oversees the entire Intelligence Community
+                </div>
+            </div>
+
+            <div class="member-card" onclick="toggleMember(this)">
+                <div class="member-header">
+                    <div class="member-title">18. U.S. Space Force Intelligence</div>
+                    <div class="member-year">2019</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="member-details">
+                    • Monitors global space activity and missile launches<br>
+                    • Operates surveillance via ground and orbital sensors<br>
+                    • Maintains Pituffik Space Base in Greenland<br>
+                    • Newest member focusing on space domain threats
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="section" style="text-align: center; background: rgba(255, 255, 255, 0.95);">
+            <button class="test-button" onclick="goToTest()">🧠 Test Your Knowledge</button>
+        </div>
+
+        <div class="section reflection-section">
+            <h2>Reflection Questions</h2>
+            
+            <div class="reflection-question" onclick="toggleReflection(this)">
+                <div class="question-header">
+                    <div class="question-text">How has the mission of the I.C. evolved with technological advancement?</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="question-answer">
+                    The Intelligence Community's mission has dramatically evolved from traditional human intelligence and basic communications interception to encompass cyber warfare, space-based surveillance, artificial intelligence, and quantum computing threats. Early intelligence focused on military movements and diplomatic communications, but today's IC must address hybrid warfare, disinformation campaigns, supply chain vulnerabilities, and emerging technologies like biotechnology and nanotechnology. The creation of agencies like the Space Force Intelligence (2019) and the expansion of NSA's cybersecurity role demonstrate how technological advancement drives organizational adaptation. Modern intelligence must now operate across multiple domains simultaneously - land, sea, air, space, and cyberspace - requiring unprecedented coordination and technical expertise.
+                </div>
+            </div>
+
+            <div class="reflection-question" onclick="toggleReflection(this)">
+                <div class="question-header">
+                    <div class="question-text">What is the significance of intelligence sharing across state and federal levels?</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="question-answer">
+                    Intelligence sharing across state and federal levels is crucial for national security because threats often manifest locally but have national or international origins. The DHS Office of Intelligence and Analysis, uniquely mandated to engage local partners, exemplifies this principle. Local law enforcement often encounters the first indicators of terrorist activity, cyber attacks, or foreign influence operations, but lacks the broader context that federal agencies possess. Conversely, federal agencies need local insights to understand how national threats impact specific communities. The 9/11 attacks highlighted the deadly consequences of intelligence stovepiping, leading to reforms that emphasized information sharing. Today's threats - from domestic terrorism to foreign interference in elections - require seamless coordination between federal intelligence capabilities and state/local operational knowledge.
+                </div>
+            </div>
+
+            <div class="reflection-question" onclick="toggleReflection(this)">
+                <div class="question-header">
+                    <div class="question-text">Which agency's innovation is most relevant to today's threats?</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="question-answer">
+                    While all agencies contribute vital capabilities, NSA's cybersecurity innovations are arguably most relevant to today's threat landscape. Cyber attacks now pose existential risks to critical infrastructure, financial systems, and democratic processes. NSA's Cybersecurity Collaboration Center and its partnerships with industry and allies address threats that transcend traditional boundaries. However, NGA's geospatial intelligence is equally critical for climate security, disaster response, and tracking global supply chains. The Coast Guard's integration of AI and machine learning for maritime threat detection represents the future of intelligence - automated, predictive, and responsive. Space Force Intelligence's monitoring of global space activity addresses the newest domain of great power competition. The most relevant innovation may be ODNI's mission centers approach, which breaks down traditional stovepipes to address cross-cutting threats like cyber, biological, and strategic competition.
+                </div>
+            </div>
+
+            <div class="reflection-question" onclick="toggleReflection(this)">
+                <div class="question-header">
+                    <div class="question-text">Why is ODNI crucial in coordinating such a diverse range of missions?</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="question-answer">
+                    ODNI is crucial because modern threats require capabilities that no single agency possesses. Created after 9/11 to address intelligence failures, ODNI serves as the conductor of an 18-member orchestra, each with specialized instruments but needing coordination to create harmony. The Director of National Intelligence manages the National Intelligence Program budget, ensuring resources align with priorities rather than agency preferences. ODNI's mission centers (cyber, biological, strategic threats) bring together experts from multiple agencies to address challenges that span traditional boundaries. For example, a cyber attack on financial systems requires NSA's technical expertise, Treasury's financial intelligence, FBI's law enforcement capabilities, and DHS's private sector partnerships. Without ODNI's coordination, agencies might duplicate efforts, miss connections, or compete rather than collaborate. The DNI also serves as the President's principal intelligence advisor, providing integrated analysis rather than competing agency perspectives.
+                </div>
+            </div>
+
+            <div class="reflection-question" onclick="toggleReflection(this)">
+                <div class="question-header">
+                    <div class="question-text">How do traditional methods balance with tech-driven methods?</div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="question-answer">
+                    Traditional human intelligence (HUMINT) and technology-driven methods like signals intelligence (SIGINT) and geospatial intelligence (GEOINT) are complementary rather than competing approaches. HUMINT provides context, motivation, and intentions that technical collection cannot capture - understanding why a leader makes decisions, not just what decisions they make. However, technical methods provide scale, persistence, and objectivity that human sources cannot match. Modern intelligence increasingly relies on fusion - combining human insights with technical data. For example, a human source might identify a terrorist cell's general location, while SIGINT pinpoints their communications and GEOINT tracks their movements. AI and machine learning enhance both approaches: helping analysts process vast amounts of technical data while also identifying patterns in human behavior. The most effective intelligence operations use traditional methods to validate technical intelligence and vice versa, creating a comprehensive understanding that neither approach could achieve alone.
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.location.href = 'module1.html';
+        }
+
+        function goToTest() {
+            window.open('https://studymate.com?id=Avs5nPF7', '_blank');
+        }
+
+        function toggleMember(card) {
+            card.classList.toggle('expanded');
+        }
+
+        function toggleReflection(question) {
+            question.classList.toggle('expanded');
+        }
+
+        // Add animation delays for member cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const memberCards = document.querySelectorAll('.member-card');
+            memberCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.style.opacity = '0';
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ea08caa428458f',t:'MTc1NTEwNzIxMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
