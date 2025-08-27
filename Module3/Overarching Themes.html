@@ -1,1 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overarching Themes: Driving Forces and Constraints</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0d1117;
+            color: #f0f6fc;
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .header-section {
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .main-heading {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .sub-heading {
+            font-size: 1.4rem;
+            color: #7d8590;
+            font-weight: 400;
+        }
+        
+        .content-wrapper {
+            display: block;
+        }
+        
+        .main-content {
+            background: #0d1117;
+        }
+        
+        .section-block {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .overview-section {
+            background: #0f1419;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .overview-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #21262d;
+        }
+        
+        .theme-letter {
+            background: linear-gradient(135deg, #f85149, #da3633);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        .title-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+        
+        .theme-subtitle {
+            font-size: 1rem;
+            color: #7d8590;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .single-column {
+            grid-template-columns: 1fr;
+        }
+        
+        .info-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .block-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(31, 111, 235, 0.05));
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .key-insight::before {
+            content: 'KEY';
+            position: absolute;
+            top: -8px;
+            left: 1rem;
+            background: #161b22;
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: #e6edf3;
+        }
+        
+        .bullet {
+            width: 6px;
+            height: 6px;
+            background: #58a6ff;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .nested-list {
+            margin-top: 0.8rem;
+            margin-left: 1.4rem;
+        }
+        
+        .nested-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            color: #7d8590;
+            font-size: 0.95rem;
+        }
+        
+        .nested-bullet {
+            width: 4px;
+            height: 4px;
+            background: #7d8590;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .definition-box {
+            background: #0d1117;
+            border-left: 3px solid #238636;
+            padding: 1rem 1.5rem;
+            margin: 0.8rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .term {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+        
+        .cost-breakdown {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .cost-title {
+            color: #f85149;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-box {
+            background: rgba(255, 212, 59, 0.1);
+            border: 1px solid rgba(255, 212, 59, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        .timeline-title {
+            color: #ffd43b;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .us-approach {
+            background: rgba(88, 166, 255, 0.1);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .europe-approach {
+            background: rgba(35, 134, 54, 0.1);
+            border: 1px solid rgba(35, 134, 54, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .us-title {
+            color: #58a6ff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .europe-title {
+            color: #238636;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .innovation-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.05));
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .innovation-title {
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: linear-gradient(135deg, #79c0ff, #58a6ff);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+        .theme-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .theme-button {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .theme-button:hover {
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .page-container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-block {
+                padding: 2rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .theme-navigation {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header-section">
+            <h1 class="main-heading">Overarching Themes</h1>
+            <p class="sub-heading">Driving Forces and Constraints in Intelligence Collection</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <main class="main-content">
+                <!-- Overview Section -->
+                <section class="overview-section">
+                    <h2 class="overview-title">Key Challenges Shaping Intelligence Operations</h2>
+                    <div class="key-insight">
+                        Two fundamental constraints that drive decision-making in intelligence collection systems
+                    </div>
+                    <div class="theme-navigation">
+                        <button class="theme-button" onclick="scrollToSection('costs')">
+                            The High Cost of Collection
+                        </button>
+                        <button class="theme-button" onclick="scrollToSection('leadtimes')">
+                            The Challenge of Long Lead Times
+                        </button>
+                    </div>
+                </section>
+
+                <!-- High Cost Section -->
+                <section class="section-block" id="costs">
+                    <div class="section-title">
+                        <div class="theme-letter">A</div>
+                        <div>
+                            <h2 class="title-text">The High Cost of Collection</h2>
+                            <p class="theme-subtitle">Financial constraints driving intelligence priorities</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">The Reality of Expenses</h3>
+                            <div class="definition-box">
+                                Technical intelligence systems, particularly satellites, represent some of the most expensive government investments, leading to constant debates about spending priorities and resource allocation.
+                            </div>
+                            
+                            <div class="cost-breakdown">
+                                <div class="cost-title">Major Cost Components</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Launch Systems:</span> $300–500 million per rocket</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Satellite Hardware:</span> Advanced sensors and imaging systems</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Power Systems:</span> Long-duration space-rated components</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Communication Equipment:</span> Secure data transmission systems</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">P&E Systems:</span> Processing and exploitation infrastructure</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Congressional Influence</h3>
+                            <div class="timeline-box">
+                                <div class="timeline-title">Budget Control Dynamics</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Congress controls intelligence budgets and historically favors expensive collection systems</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Processing and exploitation (P&E) often receives less funding priority</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Creates imbalance between collection capability and analysis capacity</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">Historical Context: Shifting Priorities</h3>
+                            
+                            <div class="timeline-box">
+                                <div class="timeline-title">Cold War Era (1950s-1990s)</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Costs were largely unquestioned due to existential threat from Soviet Union</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Massive investment in satellite reconnaissance and signals intelligence</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>National security priorities justified enormous expenditures</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="cost-breakdown">
+                                <div class="cost-title">Post-Cold War Scrutiny (1990s-2001)</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>End of Cold War led to questioning of expensive satellite programs</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Budget pressures increased focus on cost-effectiveness</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Debate over relevance of traditional collection methods</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="timeline-box">
+                                <div class="timeline-title">Post-9/11 Reassessment (2001-2010s)</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Satellites seemed less useful against terrorist networks</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Shift toward human intelligence and signals intelligence</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Questions about return on investment for expensive technical systems</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="key-insight">
+                                <strong>Current Era:</strong> Rising tensions with China and Russia have made expensive collection systems crucial again, but budget constraints remain a constant challenge in prioritizing intelligence investments.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Long Lead Times Section -->
+                <section class="section-block" id="leadtimes">
+                    <div class="section-title">
+                        <div class="theme-letter">B</div>
+                        <div>
+                            <h2 class="title-text">The Challenge of Long Lead Times</h2>
+                            <p class="theme-subtitle">Time constraints in intelligence system development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">The Development Timeline Problem</h3>
+                            <div class="definition-box">
+                                Building a new large satellite system can take 10–15 years from initial decision to operational launch, creating significant challenges for intelligence planning.
+                            </div>
+                            
+                            <div class="timeline-box">
+                                <div class="timeline-title">Consequences of Long Development Cycles</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Technology Obsolescence:</span> Systems may use outdated technology by launch</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Shifting Priorities:</span> Global threats may change during development</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Budget Overruns:</span> Extended timelines increase costs</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><span class="term">Capability Gaps:</span> Delayed systems leave intelligence gaps</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Development Phases</h3>
+                            <div class="timeline-box">
+                                <div class="timeline-title">Typical Satellite Development Timeline</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Years 1-2:</strong> Concept development and requirements</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Years 3-5:</strong> Design and engineering</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Years 6-10:</strong> Manufacturing and testing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Years 11-15:</strong> Integration, final testing, and launch</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-grid">
+                        <div class="us-approach">
+                            <div class="us-title">U.S. Approach</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Longer Development:</strong> 10-15+ years typical</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Higher Costs:</strong> Emphasis on premium capabilities</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Extended Lifespan:</strong> Designed for 15-20 year operations</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Diverse Missions:</strong> Multi-purpose platforms</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Risk Aversion:</strong> Near risk-free operation requirements</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="europe-approach">
+                            <div class="europe-title">European Approach</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Faster Development:</strong> 5-8 years more common</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Lower Costs:</strong> Focus on essential capabilities</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Shorter Lifespan:</strong> 7-10 year operational life</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Focused Missions:</strong> Single-purpose optimization</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><strong>Acceptable Risk:</strong> More tolerance for operational risks</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="innovation-box">
+                        <div class="innovation-title">The Small Satellite Revolution</div>
+                        <div class="content-grid">
+                            <div class="info-block">
+                                <h3 class="block-title">New Paradigm Benefits</h3>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Rapid Development:</strong> 2-4 years from concept to launch</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Lower Costs:</strong> Millions instead of billions per satellite</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>3D Printing:</strong> Rapid prototyping and manufacturing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Commercial Components:</strong> Off-the-shelf technology integration</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h3 class="block-title">Constellation Advantages</h3>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Continuous Coverage:</strong> Multiple satellites provide persistent monitoring</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Resilience:</strong> Loss of individual satellites doesn't cripple capability</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Scalability:</strong> Easy to add or replace satellites</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Technology Refresh:</strong> Regular updates with latest technology</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        ↑
+    </button>
+    
+    <script>
+        // Simple fade-in animation for content blocks
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.section-block, .overview-section').forEach(block => {
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(20px)';
+            block.style.transition = 'all 0.6s ease';
+            observer.observe(block);
+        });
+        
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Navigation to sections
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975b9ce7928ca684',t:'MTc1NjI5ODE2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
