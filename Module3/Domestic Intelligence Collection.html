@@ -1,1 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domestic Intelligence Collection: Balancing Security and Liberty</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0d1117;
+            color: #f0f6fc;
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .header-section {
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .main-heading {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .sub-heading {
+            font-size: 1.4rem;
+            color: #7d8590;
+            font-weight: 400;
+        }
+        
+        .content-wrapper {
+            display: block;
+        }
+        
+        .main-content {
+            background: #0d1117;
+        }
+        
+        .section-block {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .overview-section {
+            background: #0f1419;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .overview-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #21262d;
+        }
+        
+        .balance-icon {
+            background: linear-gradient(135deg, #3b82f6, #ef4444);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .title-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+        
+        .balance-subtitle {
+            font-size: 1rem;
+            color: #7d8590;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .single-column {
+            grid-template-columns: 1fr;
+        }
+        
+        .info-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .block-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(31, 111, 235, 0.05));
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .key-insight::before {
+            content: 'KEY';
+            position: absolute;
+            top: -8px;
+            left: 1rem;
+            background: #161b22;
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: #e6edf3;
+        }
+        
+        .bullet {
+            width: 6px;
+            height: 6px;
+            background: #58a6ff;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .nested-list {
+            margin-top: 0.8rem;
+            margin-left: 1.4rem;
+        }
+        
+        .nested-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            color: #7d8590;
+            font-size: 0.95rem;
+        }
+        
+        .nested-bullet {
+            width: 4px;
+            height: 4px;
+            background: #7d8590;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .definition-box {
+            background: #0d1117;
+            border-left: 3px solid #238636;
+            padding: 1rem 1.5rem;
+            margin: 0.8rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .term {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+        
+        .security-box {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .security-title {
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .liberty-box {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .liberty-title {
+            color: #ef4444;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-box {
+            background: rgba(255, 212, 59, 0.1);
+            border: 1px solid rgba(255, 212, 59, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        .stats-title {
+            color: #ffd43b;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .example-box {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .example-title {
+            color: #8b5cf6;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .legal-box {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .legal-title {
+            color: #22c55e;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .concern-box {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .concern-title {
+            color: #f87171;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .balance-scale {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+            gap: 2rem;
+        }
+        
+        .scale-side {
+            flex: 1;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .security-side {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .liberty-side {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .scale-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .scale-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .vs-divider {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #7d8590;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: linear-gradient(135deg, #79c0ff, #58a6ff);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+        .topic-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .topic-button {
+            background: linear-gradient(135deg, #3b82f6, #ef4444);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.3;
+        }
+        
+        .topic-button:hover {
+            background: linear-gradient(135deg, #ef4444, #3b82f6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .page-container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-block {
+                padding: 2rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .topic-navigation {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-scale {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .vs-divider {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header-section">
+            <h1 class="main-heading">Domestic Intelligence Collection</h1>
+            <p class="sub-heading">Balancing Security and Liberty</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <main class="main-content">
+                <!-- Overview Section -->
+                <section class="overview-section">
+                    <h2 class="overview-title">The Fundamental Challenge</h2>
+                    <div class="key-insight">
+                        The core tension in domestic intelligence: protecting national security while preserving the civil liberties and constitutional rights that define American democracy.
+                    </div>
+                    
+                    <div class="balance-scale">
+                        <div class="scale-side security-side">
+                            <div class="scale-icon">🛡️</div>
+                            <div class="scale-title" style="color: #3b82f6;">National Security</div>
+                            <p>Preventing terrorist attacks, protecting critical infrastructure, countering espionage</p>
+                        </div>
+                        <div class="vs-divider">⚖️</div>
+                        <div class="scale-side liberty-side">
+                            <div class="scale-icon">🗽</div>
+                            <div class="scale-title" style="color: #ef4444;">Civil Liberties</div>
+                            <p>Privacy rights, freedom of speech, protection from unreasonable searches</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic-navigation">
+                        <button class="topic-button" onclick="scrollToSection('core-issue')">
+                            Core Constitutional Tensions
+                        </button>
+                        <button class="topic-button" onclick="scrollToSection('fbi-role')">
+                            FBI's Dual Role Challenge
+                        </button>
+                        <button class="topic-button" onclick="scrollToSection('surveillance')">
+                            Modern Surveillance Methods
+                        </button>
+                        <button class="topic-button" onclick="scrollToSection('dhs-activities')">
+                            DHS Intelligence Expansion
+                        </button>
+                        <button class="topic-button" onclick="scrollToSection('future-concerns')">
+                            Future Challenges & Extremism
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Core Issue Section -->
+                <section class="section-block" id="core-issue">
+                    <div class="section-title">
+                        <div class="balance-icon">⚖️</div>
+                        <div>
+                            <h2 class="title-text">Core Constitutional Tensions</h2>
+                            <p class="balance-subtitle">The ongoing struggle to balance competing values</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">Security Imperatives</h3>
+                            
+                            <div class="security-box">
+                                <div class="security-title">National Security Priorities</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Terrorism Prevention:</strong> Detecting and disrupting terrorist plots before they occur</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Counterintelligence:</strong> Identifying foreign spies and influence operations</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Critical Infrastructure:</strong> Protecting power grids, transportation, and communication systems</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Cyber Threats:</strong> Defending against nation-state and criminal cyber attacks</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Domestic Extremism:</strong> Monitoring violent extremist groups and individuals</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Liberty Protections</h3>
+                            
+                            <div class="liberty-box">
+                                <div class="liberty-title">Constitutional Rights at Stake</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Fourth Amendment:</strong> Protection against unreasonable searches and seizures</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>First Amendment:</strong> Freedom of speech, religion, and association</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Privacy Rights:</strong> Expectation of privacy in personal communications and activities</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Due Process:</strong> Right to fair legal proceedings and protection from arbitrary government action</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Equal Protection:</strong> Freedom from discriminatory targeting based on race, religion, or ethnicity</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">Historical Context and Evolution</h3>
+                            
+                            <div class="example-box">
+                                <div class="example-title">Post-9/11 Transformation</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>USA PATRIOT Act (2001):</strong> Expanded surveillance powers and reduced judicial oversight requirements</div>
+                                        <div class="nested-list">
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Lowered standards for FISA warrants</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Expanded National Security Letter authority</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Enhanced information sharing between agencies</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Intelligence Reform (2004):</strong> Created DNI and emphasized intelligence sharing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Snowden Revelations (2013):</strong> Exposed extent of domestic surveillance programs</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>USA Freedom Act (2015):</strong> Reformed bulk metadata collection programs</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="key-insight">
+                                The pendulum of security vs. liberty has swung dramatically since 9/11, with periodic corrections as public awareness and concern about surveillance overreach has grown.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FBI Dual Role Section -->
+                <section class="section-block" id="fbi-role">
+                    <div class="section-title">
+                        <div class="balance-icon">🏛️</div>
+                        <div>
+                            <h2 class="title-text">FBI's Dual Role Challenge</h2>
+                            <p class="balance-subtitle">Law enforcement meets intelligence collection</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">The Institutional Tension</h3>
+                            <div class="definition-box">
+                                The FBI serves as both a federal law enforcement agency and a domestic intelligence organization, creating inherent conflicts between criminal justice and intelligence gathering objectives.
+                            </div>
+                            
+                            <div class="stats-box">
+                                <div class="stats-title">FBI by the Numbers</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Total Employees:</strong> ~35,000 (13,500 special agents)</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Intelligence Personnel:</strong> ~3,000 intelligence analysts</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Annual Budget:</strong> ~$10 billion (2023)</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Field Offices:</strong> 56 field offices nationwide</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Conflicting Objectives</h3>
+                            
+                            <div class="security-box">
+                                <div class="security-title">Law Enforcement Goals</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Prosecution Focus:</strong> Gathering evidence for criminal trials</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Constitutional Standards:</strong> Higher burden of proof and due process requirements</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Public Disclosure:</strong> Evidence must be presentable in open court</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Individual Justice:</strong> Focus on specific crimes and perpetrators</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="liberty-box">
+                                <div class="liberty-title">Intelligence Goals</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Prevention Focus:</strong> Stopping threats before they materialize</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Lower Standards:</strong> Intelligence standard vs. criminal standard of evidence</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Secrecy:</strong> Protecting sources and methods from disclosure</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Broad Understanding:</strong> Focus on patterns, networks, and threats</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">Case Study: Post-9/11 Muslim American Community Monitoring</h3>
+                            
+                            <div class="example-box">
+                                <div class="example-title">Controversial Programs and Their Impact</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Mosque Surveillance:</strong> FBI conducted extensive surveillance of Muslim American communities</div>
+                                        <div class="nested-list">
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Informants placed in mosques and community centers</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Monitoring of religious and cultural activities</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Collection of membership lists and attendance records</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Voluntary Interviews:</strong> Thousands of interviews with Muslim Americans</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Registration Programs:</strong> Special registration requirements for certain nationalities</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="concern-box">
+                                <div class="concern-title">Community Impact and Backlash</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Chilling Effect:</strong> Reduced participation in religious and community activities</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Trust Erosion:</strong> Damaged relationships between law enforcement and Muslim communities</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Legal Challenges:</strong> Multiple lawsuits alleging religious discrimination and constitutional violations</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Counterproductive Effects:</strong> Reduced community cooperation with legitimate investigations</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Surveillance Methods Section -->
+                <section class="section-block" id="surveillance">
+                    <div class="section-title">
+                        <div class="balance-icon">📡</div>
+                        <div>
+                            <h2 class="title-text">Modern Surveillance Methods</h2>
+                            <p class="balance-subtitle">Technology-enabled domestic intelligence collection</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">FBI Surveillance Aircraft</h3>
+                            
+                            <div class="stats-box">
+                                <div class="stats-title">Aerial Surveillance Program</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Fleet Size:</strong> Over 100 aircraft in FBI fleet</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Daily Flights:</strong> Hundreds of surveillance flights over U.S. cities</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Coverage:</strong> Major metropolitan areas routinely monitored</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Technology:</strong> High-resolution cameras, cell phone interceptors, heat sensors</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="security-box">
+                                <div class="security-title">Capabilities and Applications</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Real-time Tracking:</strong> Following suspects and vehicles</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Pattern Analysis:</strong> Identifying suspicious behavior and movements</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Event Monitoring:</strong> Surveillance of protests, gatherings, and public events</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Emergency Response:</strong> Support for active investigations and crisis situations</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">FBI-NSA Partnership</h3>
+                            
+                            <div class="definition-box">
+                                The FBI partners with the NSA to collect "unprotected" communications - those without a reasonable expectation of privacy under current legal interpretations.
+                            </div>
+                            
+                            <div class="example-box">
+                                <div class="example-title">Types of "Unprotected" Communications</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Metadata:</strong> Information about communications (who, when, where) but not content</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>International Communications:</strong> Calls and messages crossing U.S. borders</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Public Wi-Fi:</strong> Communications over unsecured networks</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Third-party Records:</strong> Information held by service providers</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">Remote Search Warrants and Digital Surveillance</h3>
+                            
+                            <div class="legal-box">
+                                <div class="legal-title">Expanded Digital Authorities</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Rule 41 Changes (2016):</strong> Allowed remote searches of computers in multiple jurisdictions</div>
+                                        <div class="nested-list">
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Single warrant can cover multiple computers across state lines</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Enables searches when location is concealed by technology</div>
+                                            </div>
+                                            <div class="nested-item">
+                                                <div class="nested-bullet"></div>
+                                                <div>Controversial expansion of federal search powers</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Network Investigative Techniques (NITs):</strong> Malware deployed to identify users</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Stingray Devices:</strong> Cell phone tower simulators for location tracking</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Social Media Monitoring:</strong> Automated collection and analysis of public posts</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="concern-box">
+                                <div class="concern-title">Privacy and Legal Concerns</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Scope Creep:</strong> Authorities designed for specific cases applied more broadly</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Innocent Bystanders:</strong> Surveillance techniques affect non-targets</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Technical Vulnerabilities:</strong> Government hacking tools can be stolen or misused</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Judicial Oversight:</strong> Questions about adequate court supervision of new technologies</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- DHS Activities Section -->
+                <section class="section-block" id="dhs-activities">
+                    <div class="section-title">
+                        <div class="balance-icon">🏢</div>
+                        <div>
+                            <h2 class="title-text">DHS Intelligence Expansion</h2>
+                            <p class="balance-subtitle">Growing domestic intelligence role</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">Expanding HUMINT Operations</h3>
+                            
+                            <div class="definition-box">
+                                The Department of Homeland Security is planning significant expansion of its human intelligence (HUMINT) capabilities for domestic operations, raising new questions about oversight and civil liberties.
+                            </div>
+                            
+                            <div class="security-box">
+                                <div class="security-title">Planned HUMINT Expansion</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Border Security:</strong> Enhanced human intelligence along U.S. borders</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Critical Infrastructure:</strong> Human sources monitoring threats to key facilities</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Domestic Extremism:</strong> Infiltration of violent extremist groups</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Cyber Threats:</strong> Human intelligence supporting cybersecurity operations</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Enhanced Cybersecurity Services</h3>
+                            
+                            <div class="stats-box">
+                                <div class="stats-title">Program Scope</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Participating Organizations:</strong> Thousands of private companies and government agencies</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Data Sharing:</strong> Real-time threat intelligence sharing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Network Monitoring:</strong> Deep packet inspection and traffic analysis</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Incident Response:</strong> Coordinated response to cyber attacks</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example-box">
+                                <div class="example-title">How Enhanced Cybersecurity Services Work</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Voluntary Participation:</strong> Private companies opt into information sharing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Threat Indicators:</strong> DHS provides classified threat signatures</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Network Integration:</strong> Government systems monitor private networks</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Data Collection:</strong> Aggregation of network traffic and user data</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">Privacy and Oversight Concerns</h3>
+                            
+                            <div class="concern-box">
+                                <div class="concern-title">Expanding Surveillance Infrastructure</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Mission Creep:</strong> Cybersecurity programs potentially used for broader surveillance</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Private Data Access:</strong> Government gaining unprecedented access to private communications</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Lack of Transparency:</strong> Limited public information about program scope and safeguards</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Voluntary vs. Mandatory:</strong> Concerns about future mandatory participation requirements</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="legal-box">
+                                <div class="legal-title">Oversight Mechanisms</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Congressional Oversight:</strong> House and Senate Homeland Security Committees</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Privacy Officers:</strong> DHS Privacy Office reviews programs for civil liberties impact</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Inspector General:</strong> Independent oversight of DHS operations</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>FISA Court:</strong> Limited jurisdiction over certain domestic intelligence activities</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Future Concerns Section -->
+                <section class="section-block" id="future-concerns">
+                    <div class="section-title">
+                        <div class="balance-icon">🔮</div>
+                        <div>
+                            <h2 class="title-text">Future Challenges and Domestic Extremism</h2>
+                            <p class="balance-subtitle">Evolving threats and ongoing debates</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">Rising Domestic Extremism</h3>
+                            
+                            <div class="stats-box">
+                                <div class="stats-title">Threat Assessment Data</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>FBI Priority:</strong> Domestic violent extremism now top terrorism threat</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Incidents:</strong> 267% increase in domestic terrorism cases (2017-2021)</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Fatalities:</strong> Domestic extremists killed more Americans than international terrorists in recent years</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Online Radicalization:</strong> Social media platforms accelerating extremist recruitment</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="example-box">
+                                <div class="example-title">Types of Domestic Extremism</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Racially Motivated Violent Extremism:</strong> White supremacist and neo-Nazi groups</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Anti-Government Extremism:</strong> Militia groups and sovereign citizen movements</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Single-Issue Extremism:</strong> Environmental, animal rights, and anti-abortion extremists</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Ideologically Motivated Violence:</strong> Political extremism across the spectrum</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Technology and Surveillance Challenges</h3>
+                            
+                            <div class="concern-box">
+                                <div class="concern-title">Emerging Technologies</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Artificial Intelligence:</strong> AI-powered surveillance and predictive policing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Facial Recognition:</strong> Mass surveillance capabilities in public spaces</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Biometric Tracking:</strong> Advanced identification and tracking systems</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Internet of Things:</strong> Surveillance through connected devices</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Quantum Computing:</strong> Potential to break current encryption methods</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">The Continuing Debate</h3>
+                            
+                            <div class="key-insight">
+                                As domestic extremism evolves and new technologies emerge, the fundamental tension between security and liberty will continue to drive policy debates, legal challenges, and public discourse about the proper role of intelligence collection in American society.
+                            </div>
+                            
+                            <div class="example-box">
+                                <div class="example-title">Recent Flashpoints</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>January 6, 2021:</strong> Capitol attack highlighted domestic extremism threat and intelligence failures</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>COVID-19 Protests:</strong> Surveillance of anti-lockdown and other protest movements</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Racial Justice Protests:</strong> Questions about surveillance of Black Lives Matter activists</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>School Board Meetings:</strong> FBI involvement in monitoring threats to local officials</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="legal-box">
+                                <div class="legal-title">Future Considerations</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Legislative Reform:</strong> Potential updates to surveillance authorities and oversight</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Judicial Precedents:</strong> Court decisions shaping digital privacy rights</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Public Opinion:</strong> Changing attitudes toward surveillance and privacy</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>International Models:</strong> Learning from other democracies' approaches</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Technological Safeguards:</strong> Building privacy protections into surveillance systems</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        ↑
+    </button>
+    
+    <script>
+        // Simple fade-in animation for content blocks
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.section-block, .overview-section').forEach(block => {
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(20px)';
+            block.style.transition = 'all 0.6s ease';
+            observer.observe(block);
+        });
+        
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Navigation to sections
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975ba0b57011a684',t:'MTc1NjI5ODMyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
