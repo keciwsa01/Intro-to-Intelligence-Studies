@@ -1,1 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Core Disciplines: How Intelligence is Gathered (INTs)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0d1117;
+            color: #f0f6fc;
+            line-height: 1.6;
+        }
+        
+        .page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .header-section {
+            border-bottom: 1px solid #21262d;
+            padding-bottom: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .main-heading {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .sub-heading {
+            font-size: 1.4rem;
+            color: #7d8590;
+            font-weight: 400;
+        }
+        
+        .content-wrapper {
+            display: block;
+        }
+        
+        .main-content {
+            background: #0d1117;
+        }
+        
+        .section-block {
+            background: #161b22;
+            border: 1px solid #21262d;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .overview-section {
+            background: #0f1419;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .overview-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #21262d;
+        }
+        
+        .discipline-letter {
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+        
+        .title-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+        
+        .discipline-subtitle {
+            font-size: 1rem;
+            color: #7d8590;
+            font-weight: 400;
+            margin-top: 0.2rem;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .single-column {
+            grid-template-columns: 1fr;
+        }
+        
+        .info-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        .block-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #58a6ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        .key-insight {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(31, 111, 235, 0.05));
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        
+        .key-insight::before {
+            content: 'KEY';
+            position: absolute;
+            top: -8px;
+            left: 1rem;
+            background: #161b22;
+            padding: 0 0.5rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #58a6ff;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+            color: #e6edf3;
+        }
+        
+        .bullet {
+            width: 6px;
+            height: 6px;
+            background: #58a6ff;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .nested-list {
+            margin-top: 0.8rem;
+            margin-left: 1.4rem;
+        }
+        
+        .nested-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            color: #7d8590;
+            font-size: 0.95rem;
+        }
+        
+        .nested-bullet {
+            width: 4px;
+            height: 4px;
+            background: #7d8590;
+            border-radius: 50%;
+            margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+        
+        .definition-box {
+            background: #0d1117;
+            border-left: 3px solid #238636;
+            padding: 1rem 1.5rem;
+            margin: 0.8rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+        
+        .term {
+            color: #58a6ff;
+            font-weight: 600;
+        }
+        
+        .strength-weakness-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .strength-block {
+            background: rgba(35, 134, 54, 0.1);
+            border: 1px solid rgba(35, 134, 54, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .weakness-block {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .strength-title {
+            color: #238636;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .weakness-title {
+            color: #f85149;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 212, 59, 0.1);
+            border: 1px solid rgba(255, 212, 59, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        .highlight-title {
+            color: #ffd43b;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .strength-weakness-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #58a6ff, #1f6feb);
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: linear-gradient(135deg, #79c0ff, #58a6ff);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+        
+        .int-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .int-button {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .int-button:hover {
+            background: linear-gradient(135deg, #a855f7, #8b5cf6);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .page-container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-block {
+                padding: 2rem;
+            }
+            
+            .back-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .int-navigation {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header-section">
+            <h1 class="main-heading">The Core Disciplines</h1>
+            <p class="sub-heading">How Intelligence is Gathered (INTs)</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <main class="main-content">
+                <!-- Overview Section -->
+                <section class="overview-section">
+                    <h2 class="overview-title">Overview of Collection Disciplines (INTs)</h2>
+                    <div class="key-insight">
+                        Different methods of intelligence collection, each with unique strengths and weaknesses
+                    </div>
+                    <div class="int-navigation">
+                        <button class="int-button" onclick="scrollToSection('geoint')">
+                            GEOINT - Geospatial Intelligence
+                        </button>
+                        <button class="int-button" onclick="scrollToSection('sigint')">
+                            SIGINT - Signals Intelligence
+                        </button>
+                        <button class="int-button" onclick="scrollToSection('masint')">
+                            MASINT - Measurement & Signatures
+                        </button>
+                        <button class="int-button" onclick="scrollToSection('humint')">
+                            HUMINT - Human Intelligence
+                        </button>
+                        <button class="int-button" onclick="scrollToSection('osint')">
+                            OSINT - Open-Source Intelligence
+                        </button>
+                    </div>
+                </section>
+
+                <!-- GEOINT Section -->
+                <section class="section-block" id="geoint">
+                    <div class="section-title">
+                        <div class="discipline-letter">A</div>
+                        <div>
+                            <h2 class="title-text">Geospatial Intelligence (GEOINT)</h2>
+                            <p class="discipline-subtitle">Imagery and geospatial data analysis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">What it Is</h3>
+                            <div class="definition-box">
+                                Derived from imagery and geospatial data, describing features and activities and their locations on, above, or below Earth's surface. Managed by the National Geospatial-Intelligence Agency (NGA).
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <div class="highlight-title">Historical Evolution</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>From French army balloon photos (1794) to planes, and later satellites</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Corona Program:</strong> First operational spy satellite (late 1950s), developed as U-2 planes had limited life</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Used film-based cameras with improving resolution (from ~40 feet to ~1 foot) and required capsule recovery by aircraft</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Types of Imagery</h3>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">Electro-optical (EO):</span> Standard visual imagery</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">Radar (SAR):</span> Synthetic Aperture Radar</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">Infrared (IR):</span> Heat signature detection</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">Multispectral/Hyperspectral (MSI/HSI):</span> Multiple wavelength analysis</div>
+                                </li>
+                            </ul>
+                            
+                            <div class="highlight-box">
+                                <div class="highlight-title">Modern Tools</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>UAVs (Drones):</strong> Offer real-time video and can loiter over targets, addressing the snapshot problem</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div><strong>Commercial Imagery:</strong> Frees classified systems, used for mapping, disaster response (e.g., WorldView-1)</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-weakness-grid">
+                        <div class="strength-block">
+                            <div class="strength-title">Strengths</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Clear visuals, easy for policymakers to understand ("a picture is worth a thousand words")</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Self-revealing (e.g., troop exercises)</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Widely compelling evidence</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="weakness-block">
+                            <div class="weakness-title">Weaknesses</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>"Snapshot problem" (where & when, not why)</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Requires expert photo interpreters</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Susceptible to deception (camouflage, decoys)</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Risk of over-reliance</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SIGINT Section -->
+                <section class="section-block" id="sigint">
+                    <div class="section-title">
+                        <div class="discipline-letter">B</div>
+                        <div>
+                            <h2 class="title-text">Signals Intelligence (SIGINT)</h2>
+                            <p class="discipline-subtitle">Intercepted communications and electronic signals</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">What it Is</h3>
+                            <div class="definition-box">
+                                Information collected by intercepting signals (radio, phone, satellite transmissions, electronic emissions). The NSA is a key collector.
+                            </div>
+                            
+                            <h3 class="block-title">Types</h3>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">COMINT:</span> Communications intelligence</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">TELINT:</span> Telemetry intelligence from weapons tests</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div><span class="term">ELINT/FISINT:</span> Electronic emissions from radars</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Legal and Ethical Dilemmas</h3>
+                            <div class="highlight-box">
+                                <div class="highlight-title">Post-9/11 Changes</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Expanded surveillance post-9/11 (PATRIOT Act)</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Controversies over bulk metadata collection (Snowden leaks)</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Subsequent reforms (USA FREEDOM Act)</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-weakness-grid">
+                        <div class="strength-block">
+                            <div class="strength-title">Strengths</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Can show intentions and plans, not just capabilities</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Offers early warning capabilities</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="weakness-block">
+                            <div class="weakness-title">Weaknesses</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>If enemies use secure communications or encryption, intercepts dry up ("going dark")</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Flood of modern communications overwhelms analysts</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Terrorist groups adapt with couriers or single-use phones</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MASINT Section -->
+                <section class="section-block" id="masint">
+                    <div class="section-title">
+                        <div class="discipline-letter">C</div>
+                        <div>
+                            <h2 class="title-text">Measurement and Signatures Intelligence (MASINT)</h2>
+                            <p class="discipline-subtitle">The "science and forensics branch"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">What it Is</h3>
+                            <div class="definition-box">
+                                The "science and forensics branch," looking at physical signatures like vibrations, heat, radiation, chemical traces, or unusual radar reflections.
+                            </div>
+                            
+                            <h3 class="block-title">Six Disciplines</h3>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Electro-optical</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Geophysical</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Materials</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Nuclear radiation</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Radar</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Radio frequency</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Key Contributions</h3>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Detects WMD development</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Monitors environmental issues</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Tracks weapons development and deception</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Supports arms control and treaty verification</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-weakness-grid">
+                        <div class="strength-block">
+                            <div class="strength-title">Strengths</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Reveals hidden or disguised activities</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Complements other INTs for powerful fusion</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="weakness-block">
+                            <div class="weakness-title">Weaknesses</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Highly technical, less understood by policymakers</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Requires specialized analysts</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Currently shared between the DIA and NGA, not an independent agency</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- HUMINT Section -->
+                <section class="section-block" id="humint">
+                    <div class="section-title">
+                        <div class="discipline-letter">D</div>
+                        <div>
+                            <h2 class="title-text">Human Intelligence (HUMINT)</h2>
+                            <p class="discipline-subtitle">Intelligence collected from people</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid">
+                        <div class="info-block">
+                            <h3 class="block-title">What it Is</h3>
+                            <div class="definition-box">
+                                Intelligence collected from people (espionage, clandestine collection, overt diplomatic reporting), often involving face-to-face recruitment and risk. Primarily the CIA Directorate of Operations (DO).
+                            </div>
+                            
+                            <div class="highlight-box">
+                                <div class="highlight-title">Agent Acquisition Cycle</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Targeting</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Assessing</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Recruiting</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Handling</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Termination</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="info-block">
+                            <h3 class="block-title">Challenges in the Digital Age</h3>
+                            <div class="highlight-box">
+                                <div class="highlight-title">Modern Complications</div>
+                                <ul class="content-list">
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Social media footprints make cover more difficult</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Counterintelligence threats have increased</div>
+                                    </li>
+                                    <li class="list-item">
+                                        <div class="bullet"></div>
+                                        <div>Digital surveillance makes traditional tradecraft harder</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-weakness-grid">
+                        <div class="strength-block">
+                            <div class="strength-title">Strengths</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Provides unique access to plans, intentions, and thoughts that technical INTs cannot</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Relatively cheap compared to satellites</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="weakness-block">
+                            <div class="weakness-title">Weaknesses</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Risky (lives and diplomatic fallout)</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Fragile and slow to develop</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Vulnerable to deception (double agents, dangles)</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- OSINT Section -->
+                <section class="section-block" id="osint">
+                    <div class="section-title">
+                        <div class="discipline-letter">E</div>
+                        <div>
+                            <h2 class="title-text">Open-Source Intelligence (OSINT)</h2>
+                            <p class="discipline-subtitle">Intelligence from publicly available information</p>
+                        </div>
+                    </div>
+                    
+                    <div class="content-grid single-column">
+                        <div class="info-block">
+                            <h3 class="block-title">What it Is</h3>
+                            <div class="definition-box">
+                                Intelligence built from publicly available information (news, social media, government reports, academic work).
+                            </div>
+                            
+                            <div class="key-insight">
+                                Became critical during the COVID-19 pandemic when other collection methods were hampered
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="strength-weakness-grid">
+                        <div class="strength-block">
+                            <div class="strength-title">Advantages</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Readily accessible and cheap</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Provides crucial context (the "edges of the puzzle")</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>No legal or ethical barriers to collection</div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="weakness-block">
+                            <div class="weakness-title">Disadvantages / Challenges</div>
+                            <ul class="content-list">
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Volume overload (the "wheat vs. chaff" problem)</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Bias and reliability issues</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Fake news and AI manipulation</div>
+                                </li>
+                                <li class="list-item">
+                                    <div class="bullet"></div>
+                                    <div>Often undervalued culturally within the intelligence community</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+        ↑
+    </button>
+    
+    <script>
+        // Simple fade-in animation for content blocks
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.section-block, .overview-section').forEach(block => {
+            block.style.opacity = '0';
+            block.style.transform = 'translateY(20px)';
+            block.style.transition = 'all 0.6s ease';
+            observer.observe(block);
+        });
+        
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Navigation to sections
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975b9b6ba3dfa684',t:'MTc1NjI5ODEwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
