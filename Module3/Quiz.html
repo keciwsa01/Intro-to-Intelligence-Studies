@@ -1,1 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligence Collection - Interactive Quiz System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f1f5f9;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header-section {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ef4444);
+            border-radius: 2px;
+        }
+        
+        .main-heading {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ef4444);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        
+        .sub-heading {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .control-button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .control-button.secondary {
+            background: linear-gradient(135deg, #64748b, #475569);
+        }
+        
+        .control-button.success {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+        
+        .quiz-info {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .quiz-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .stat-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        
+        .question-container {
+            background: rgba(30, 41, 59, 0.9);
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .question-container:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .question-number {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .question-type {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            text-transform: uppercase;
+        }
+        
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .option {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(71, 85, 105, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+        
+        .option:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .option.selected {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .option.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.2);
+        }
+        
+        .option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.2);
+        }
+        
+        .option-letter {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background: #22c55e;
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .matching-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .matching-column {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        .matching-column h4 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .matching-item {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(71, 85, 105, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .matching-item:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .matching-item.selected {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.2);
+        }
+        
+        .matching-item.matched {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.2);
+            opacity: 0.7;
+        }
+        
+        .flowchart-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        .flowchart-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .flowchart-blank {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed rgba(59, 130, 246, 0.5);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            margin: 0.3rem;
+            display: inline-block;
+            min-width: 140px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .flowchart-blank:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .flowchart-blank.selected {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            border-style: solid;
+        }
+        
+        .flowchart-blank.filled {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            border-style: solid;
+            color: #22c55e;
+        }
+        
+        .flowchart-options {
+            margin-top: 1.5rem;
+        }
+        
+        .flowchart-options h4 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+        
+        .flowchart-option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.8rem;
+        }
+        
+        .flowchart-option {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(71, 85, 105, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .flowchart-option:hover {
+            border-color: rgba(59, 130, 246, 0.6);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        .flowchart-option.used {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .table-container {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            overflow-x: auto;
+        }
+        
+        .completion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+        
+        .completion-table th,
+        .completion-table td {
+            border: 1px solid rgba(71, 85, 105, 0.5);
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .completion-table th {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        .table-blank {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px dashed rgba(59, 130, 246, 0.5);
+            border-radius: 6px;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .table-blank:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+        
+        .table-blank.selected {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+            border-style: solid;
+        }
+        
+        .table-blank.filled {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: #22c55e;
+            border-style: solid;
+            color: #22c55e;
+        }
+        
+        .checkbox-option {
+            position: relative;
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            right: 1.5rem;
+            transform: translateY(-50%);
+            height: 28px;
+            width: 28px;
+            background-color: rgba(71, 85, 105, 0.5);
+            border-radius: 6px;
+            border: 2px solid rgba(71, 85, 105, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .checkbox-option input:checked ~ .checkmark {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 8px;
+            top: 4px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+        
+        .checkbox-option input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .submit-button {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            padding: 1.5rem 4rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 3rem auto;
+            display: block;
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.3);
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+        
+        .submit-button:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .results-container {
+            background: rgba(30, 41, 59, 0.9);
+            border: 2px solid rgba(34, 197, 94, 0.5);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .score-display {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .score-item {
+            background: rgba(15, 23, 42, 0.6);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        .score-item h4 {
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .explanation-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .explanation-section.correct {
+            border-left-color: #22c55e;
+        }
+        
+        .explanation-section.incorrect {
+            border-left-color: #ef4444;
+        }
+        
+        .explanation-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .explanation-title.correct {
+            color: #22c55e;
+        }
+        
+        .explanation-title.incorrect {
+            color: #ef4444;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .progress-bar {
+            background: rgba(71, 85, 105, 0.3);
+            height: 8px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .page-container {
+                padding: 1rem;
+            }
+            
+            .matching-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .quiz-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="header-section">
+            <h1 class="main-heading">Intelligence Collection Quiz</h1>
+            <p class="sub-heading">Comprehensive Assessment of Intelligence Concepts & Methods</p>
+            
+            <div class="quiz-controls">
+                <button class="control-button" onclick="startRandomQuiz()">🎲 Random Quiz (20 Questions)</button>
+                <button class="control-button secondary" onclick="showAllQuestions()">📚 Study Mode (All 50 Questions)</button>
+                <button class="control-button secondary" onclick="resetQuiz()">🔄 Reset Quiz</button>
+            </div>
+        </header>
+        
+        <div id="quizInfo" class="quiz-info hidden">
+            <h3>Quiz Instructions</h3>
+            <p>Answer all questions and click "Submit Quiz" to see your results. You can change your answers before submitting.</p>
+            <div class="quiz-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="questionCount">20</div>
+                    <div>Total Questions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div>Question Types</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="progressPercent">0%</div>
+                    <div>Progress</div>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div id="questionsContainer"></div>
+        
+        <button id="submitButton" class="submit-button hidden" onclick="submitQuiz()">Submit Quiz</button>
+        
+        <div id="resultsContainer" class="results-container hidden">
+            <div class="score-display" id="scoreDisplay">0%</div>
+            <p id="scoreText">Great job! Review the questions above to see detailed explanations.</p>
+            <div class="score-breakdown" id="scoreBreakdown"></div>
+            <button class="control-button success" onclick="startRandomQuiz()" style="margin-top: 2rem;">Take Another Random Quiz</button>
+        </div>
+    </div>
+    
+    <script>
+        // Complete question bank with all 50 questions
+        const questionBank = [
+            // Multiple Choice Questions (15)
+            {
+                type: 'multiple-choice',
+                question: 'Which of the following technologies revolutionized military communication in the United States during the Civil War?',
+                options: ['Semaphore', 'Carrier pigeons', 'Telegraph', 'Aerial Telegraphy (wig-wag)'],
+                correct: 2,
+                explanation: 'The telegraph revolutionized military communication during the Civil War by providing near real-time, two-way communication for military command and control.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'What was the primary method used by Union Signalmen to encrypt visual messages sent via wig-wag during the Civil War?',
+                options: ['Stager\'s Telegraphic Cipher Book', 'The Vigenere Square', 'A cipher wheel', 'A cipher disk'],
+                correct: 3,
+                explanation: 'Union signalmen used cipher disks to encrypt letters before they were visually signaled via wig-wag.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'According to the sources, what does the military term ISR stand for?',
+                options: ['Intelligence, Strategy, and Resources', 'Intelligence, Surveillance, and Reconnaissance', 'Information, Security, and Reporting', 'Interception, Signals, and Retrieval'],
+                correct: 1,
+                explanation: 'ISR stands for Intelligence, Surveillance, and Reconnaissance - the core activities of military intelligence gathering.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Which of the following collection disciplines is primarily concerned with intercepting messages between people?',
+                options: ['TELINT', 'ELINT', 'COMINT (Communications Intelligence)', 'FISINT'],
+                correct: 2,
+                explanation: 'COMINT (Communications Intelligence) focuses specifically on intercepting and analyzing communications between people.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'What was the official cover story for the CIA\'s Corona spy satellite program during its early operations?',
+                options: ['The Vanguard Program', 'The Keyhole Project', 'The Discoverer Program', 'The Samos Initiative'],
+                correct: 2,
+                explanation: 'The Corona program operated under the cover story of the "Discoverer Program," claiming to send biological samples into space.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Who developed the most effective code used by the Union\'s Military Telegraph Service during the Civil War?',
+                options: ['Maj Albert Meyer', 'President Lincoln', 'Anson Stager', 'Edward Allen'],
+                correct: 2,
+                explanation: 'Anson Stager developed Stager\'s Telegraphic Cipher Book, a route transposition and code system used by the Union\'s Military Telegraph Service.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'What is the "Vacuum Cleaner Problem" in intelligence collection primarily associated with?',
+                options: ['The difficulty of physically collecting data from hostile territories.', 'The need for advanced technology to clean up digital espionage attempts.', 'Sweeping up massive amounts of data where key intelligence is buried in irrelevant information.', 'The process of securely destroying outdated intelligence documents.'],
+                correct: 2,
+                explanation: 'The Vacuum Cleaner Problem describes how intelligence collection sweeps up massive amounts of data without precise focus, making it difficult to find key intelligence buried in irrelevant information.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Which type of satellite orbit is characterized by matching Earth\'s rotation, allowing the satellite to stay over the same spot, and is used for early-warning and communications?',
+                options: ['Low Earth Orbit (LEO)', 'Medium Earth Orbit (MEO)', 'Geosynchronous Orbit (GEO)', 'Sun-Synchronous Orbit'],
+                correct: 2,
+                explanation: 'Geosynchronous Orbit (GEO) satellites match Earth\'s rotation, staying over the same spot, making them ideal for early-warning systems and communications.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'According to the sources, what is the core issue when collecting domestic intelligence?',
+                options: ['The lack of advanced technology for surveillance.', 'The high cost of domestic operations compared to foreign.', 'The absence of clear legal frameworks for intelligence agencies.', 'Balancing civil liberties with national security.'],
+                correct: 3,
+                explanation: 'The core issue in domestic intelligence collection is balancing the need for national security with protecting civil liberties and constitutional rights.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'What is the primary purpose of Measurement and Signatures Intelligence (MASINT)?',
+                options: ['To provide policymakers with clear, visual images of targets.', 'To intercept and decrypt communications between adversaries.', 'To detect unique physical signatures of weapons, materials, and activities.', 'To gather information through human sources and espionage.'],
+                correct: 2,
+                explanation: 'MASINT focuses on detecting unique physical signatures such as vibrations, heat, radiation, chemical traces, or unusual radar reflections to identify activities and materials.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Which of the following best describes Al-Jihad Al-Akbar, or the Greater Jihad?',
+                options: ['The individual and community-wide struggle to be more devout and righteous and to abjure sin.', 'The collective duty of the Islamic State to expand the territory of Islam through warfare.', 'The act of fighting the enemies of God through holy war.', 'The propagation of Islamic scholarship and legal reasoning.'],
+                correct: 0,
+                explanation: 'Al-Jihad Al-Akbar (Greater Jihad) refers to the internal struggle of individuals and communities to be more devout, righteous, and to combat the temptation of sin.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Which US government agency is primarily responsible for Geospatial Intelligence (GEOINT)?',
+                options: ['National Security Agency (NSA)', 'Central Intelligence Agency (CIA)', 'National Geospatial-Intelligence Agency (NGA)', 'Defense Intelligence Agency (DIA)'],
+                correct: 2,
+                explanation: 'The National Geospatial-Intelligence Agency (NGA) is the primary US government agency responsible for GEOINT, providing imagery and geospatial analysis.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'In the context of intelligence, what does "circular reporting" refer to?',
+                options: ['The continuous cycle of intelligence gathering, analysis, and dissemination.', 'The process of creating intelligence reports that are shared across multiple agencies.', 'Collecting the same information twice from different sources, leading to over-crediting its importance.', 'The regular review and update of intelligence priorities based on global events.'],
+                correct: 2,
+                explanation: 'Circular reporting occurs when agencies collect the same information from different sources, potentially leading analysts to over-credit its importance even though it originates from a single source.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'What was the resolution of the initial Corona spy satellites that recorded images?',
+                options: ['3 feet (1 meter)', '1 foot (30 centimeters)', '40 feet (12 meters)', '0.5 meters (20 inches)'],
+                correct: 2,
+                explanation: 'Initial Corona satellites had a resolution of about 40 feet (12 meters), which dramatically improved to about 3 feet (1 meter) by the program\'s end in 1972.'
+            },
+            {
+                type: 'multiple-choice',
+                question: 'Which of the following is considered a strength of Signals Intelligence (SIGINT)?',
+                options: ['Its immunity to encryption.', 'Its ability to provide clear, compelling visual evidence.', 'Its capacity to reveal intentions and plans, not just capabilities.', 'Its cost-effectiveness compared to open-source methods.'],
+                correct: 2,
+                explanation: 'A key strength of SIGINT is its ability to reveal intentions and plans through intercepted communications, providing insight beyond just observable capabilities.'
+            },
+
+            // Multi-Select Questions (15)
+            {
+                type: 'multi-select',
+                question: 'According to the sources, which of the following were problems associated with wire telegraphy during the Civil War? Select all that apply.',
+                options: ['It was easy to intercept messages.', 'Few telegraph lines ran through battle areas, making it inconvenient on the battlefield.', 'It was mainly civilian run, leading to lack of military control.', 'It was too slow for effective communication.'],
+                correct: [0, 1, 2],
+                explanation: 'Wire telegraphy during the Civil War was easy to intercept, had limited lines in battle areas, and was primarily civilian-operated, creating military control issues. However, it was actually fast for its time.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What are some of the key components that contribute to the high cost of satellites? Select all that apply.',
+                options: ['Rockets to launch them.', 'Sensors to gather data.', 'Power systems to run them.', 'Processing and exploitation (P&E) of data.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'All of these components contribute to satellite costs: launch rockets ($300-500 million), sophisticated sensors, power systems, and the processing/exploitation infrastructure needed to analyze the collected data.'
+            },
+            {
+                type: 'multi-select',
+                question: 'Which of the following are considered types or sub-disciplines of Signals Intelligence (SIGINT)? Select all that apply.',
+                options: ['IMINT', 'COMINT (Communications Intelligence)', 'TELINT (Telemetry Intelligence)', 'ELINT (Electronic Intelligence)'],
+                correct: [1, 2, 3],
+                explanation: 'SIGINT includes COMINT (communications), TELINT (telemetry), and ELINT (electronic signals). IMINT (Imagery Intelligence) is a separate discipline under GEOINT.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What are some weaknesses of Geospatial Intelligence (GEOINT)? Select all that apply.',
+                options: ['It often provides only a "snapshot" in time.', 'It requires expert photo interpreters.', 'It is susceptible to deception like camouflage and decoys.', 'It is difficult for policymakers to understand.'],
+                correct: [0, 1, 2],
+                explanation: 'GEOINT weaknesses include providing only snapshots in time, requiring expert interpretation, and vulnerability to deception. However, it\'s actually considered easy for policymakers to understand due to its visual nature.'
+            },
+            {
+                type: 'multi-select',
+                question: 'According to the sources, what factors have driven the shift towards building smaller, cheaper satellites? Select all that apply.',
+                options: ['Faster build times.', 'Easier upgrading as technology changes.', 'Increased resilience against attack when used in constellations.', 'The ability to achieve higher resolution than large satellites.'],
+                correct: [0, 1, 2],
+                explanation: 'Smaller satellites offer faster build times, easier technology upgrades, and increased resilience through constellation deployment. However, they typically have lower resolution than large satellites due to size constraints.'
+            },
+            {
+                type: 'multi-select',
+                question: 'Which of the following are examples of Denial and Deception (D&D) tactics mentioned in the sources? Select all that apply.',
+                options: ['Flying the same limited number of bombers in loops over parades to inflate perceived strength.', 'Using inflatable tanks or decoy weapons.', 'Creating fake radio signals to trick signals collectors.', 'Omitting sensitive sites from official maps.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'All of these are examples of D&D tactics: aerial deception with repeated bomber flights, physical decoys like inflatable tanks, electronic deception with fake signals, and information denial by omitting sites from maps.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What are the primary challenges facing Open-Source Intelligence (OSINT)? Select all that apply.',
+                options: ['Overwhelming volume of information.', 'Bias and reliability issues from various sources.', 'The ease with which false or manipulated content spreads.', 'Institutional prejudice against OSINT within the intelligence community.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'OSINT faces all these challenges: information overload (wheat vs. chaff), source reliability issues, the spread of fake news and manipulated content, and institutional bias that undervalues open-source intelligence.'
+            },
+            {
+                type: 'multi-select',
+                question: 'Which of the following describe the "stovepipes problem" in intelligence? Select all that apply.',
+                options: ['Each intelligence discipline (INT) operates as its own self-contained pipeline from collection to dissemination.', 'INTs are largely separate and sometimes compete for tasks and funding.', 'There is no single leader with complete control over all the INTs.', 'Even within one INT, sub-pipelines or programs may not coordinate effectively.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'The stovepipes problem encompasses all these issues: separate INT pipelines, competition between disciplines, lack of unified leadership, and poor coordination even within individual INTs.'
+            },
+            {
+                type: 'multi-select',
+                question: 'According to the sources, which of these are considered the "Six Disciplines" of MASINT? Select all that apply.',
+                options: ['Electro-optical', 'Geophysical', 'Materials', 'Nuclear Radiation', 'Radar', 'Radio Frequency'],
+                correct: [0, 1, 2, 3, 4, 5],
+                explanation: 'All six are disciplines of MASINT: Electro-optical, Geophysical, Materials, Nuclear Radiation, Radar, and Radio Frequency signatures intelligence.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What was the major intelligence gap in the Cuban Missile Crisis that was not discovered until 1992? Select all that apply.',
+                options: ['The exact number of missile sites deployed.', 'The type of nuclear warheads the missiles carried.', 'The secret deployment of tactical nuclear weapons to Cuba.', 'That Soviet commanders were allowed to use tactical nuclear weapons if attacked.'],
+                correct: [2, 3],
+                explanation: 'The major intelligence gaps were the secret deployment of tactical nuclear weapons to Cuba and the fact that Soviet commanders had authorization to use them if attacked - both discovered only in 1992.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What are some of the factors contributing to the Processing and Exploitation (P&E) imbalance in the intelligence community? Select all that apply.',
+                options: ['Collection systems gather far more data than analysts can review.', 'Government budget choices historically prioritized new collection systems over P&E manpower and technology.', 'Limits in technology, leading to vital information being overlooked.', 'Lack of interest from Congress in improving P&E capabilities.'],
+                correct: [0, 1, 2],
+                explanation: 'The P&E imbalance is caused by excessive data collection, budget priorities favoring collection over processing, and technology limitations. Congress has actually become more interested in P&E improvements recently.'
+            },
+            {
+                type: 'multi-select',
+                question: 'Which of the following are examples of how Cyber Espionage parallels steps in human espionage? Select all that apply.',
+                options: ['Spotting/Assessing -> searching for computers with desired access or information.', 'Asset Validation -> avoiding honeypots.', 'Recruitment -> spearphishing or other false-front approaches.', 'Cover -> botnets or proxy networks to mask the attacker\'s origin.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'Cyber espionage parallels all these human espionage steps: spotting targets becomes searching for vulnerable systems, asset validation involves avoiding traps, recruitment uses deceptive approaches, and cover employs technical masking.'
+            },
+            {
+                type: 'multi-select',
+                question: 'According to the sources, what were key features of the Corona spy satellite program? Select all that apply.',
+                options: ['Launched into polar orbits to fly over Russia.', 'Used long pieces of film stored in return capsules.', 'Capsules were designed to be captured by aircraft in flight.', 'The resolution improved significantly from 40 feet to 3 feet over the program\'s lifespan.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'All were key Corona features: polar orbits for Russian coverage, film-based photography in return capsules, mid-air capsule recovery by aircraft, and dramatic resolution improvement from 40 feet to 3 feet.'
+            },
+            {
+                type: 'multi-select',
+                question: 'Which of the following are noted challenges for Signals Intelligence (SIGINT)? Select all that apply.',
+                options: ['Widespread encryption.', 'The overwhelming volume of modern communications.', 'Terrorist groups adapting by using couriers or single-use phones.', 'Language barriers for analysts.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'SIGINT faces all these challenges: widespread encryption (even in apps like WhatsApp), overwhelming data volume, adaptive adversary behavior, and language barriers in analyzing foreign communications.'
+            },
+            {
+                type: 'multi-select',
+                question: 'What are some criticisms or problems associated with the practice of classification in the US intelligence community? Select all that apply.',
+                options: ['It is often overused ("promiscuous classification").', 'It can be abused to hide failures or mistakes.', 'It makes sharing intelligence with allies difficult.', 'It leads to financial and policy costs.'],
+                correct: [0, 1, 2, 3],
+                explanation: 'Classification faces all these criticisms: overuse (76.8 million classification events in 2010), abuse to hide failures, barriers to intelligence sharing, and significant financial and policy costs.'
+            },
+
+            // True/False Questions (10)
+            {
+                type: 'true-false',
+                question: 'President Lincoln personally spent hours each day in his military telegraph office, receiving updates and directing his commanders.',
+                correct: true,
+                explanation: 'True. President Lincoln was known to spend considerable time in the military telegraph office, staying closely involved in military communications and command decisions.'
+            },
+            {
+                type: 'true-false',
+                question: 'The Union Army Signal Corps suffered casualties proportionate to conventional troops during the Civil War.',
+                correct: false,
+                explanation: 'False. The Union Army Signal Corps did not suffer casualties proportionate to conventional troops, as they were typically positioned away from direct combat while operating communication equipment.'
+            },
+            {
+                type: 'true-false',
+                question: 'During the Cold War, the U.S. and USSR generally agreed not to interfere with each other\'s satellites because stability depended on them for monitoring.',
+                correct: true,
+                explanation: 'True. Both superpowers recognized that satellite-based monitoring contributed to strategic stability by enabling verification of arms control agreements and reducing uncertainty.'
+            },
+            {
+                type: 'true-false',
+                question: 'Reconnaissance involves watching something over a long period, like monitoring a city or group.',
+                correct: false,
+                explanation: 'False. Reconnaissance typically involves shorter-term observation to gather specific information. Surveillance involves watching something over a long period.'
+            },
+            {
+                type: 'true-false',
+                question: 'The Future Imagery Architecture (FIA) program was canceled because it successfully met its cost and development targets ahead of schedule.',
+                correct: false,
+                explanation: 'False. The FIA program was canceled due to cost overruns and development problems, not because it met its targets successfully.'
+            },
+            {
+                type: 'true-false',
+                question: 'According to the sources, cyber espionage is considered a separate, distinct intelligence discipline (INT) from HUMINT or SIGINT.',
+                correct: false,
+                explanation: 'False. Cyber espionage is not considered a separate INT discipline but rather incorporates elements of existing disciplines like SIGINT and HUMINT.'
+            },
+            {
+                type: 'true-false',
+                question: 'The Quran explicitly forbids any form of fighting and emphasizes that there is no compulsion in religion.',
+                correct: false,
+                explanation: 'False. The Quran contains both verses that command fighting and verses that reject compulsion in religion, reflecting the complex and sometimes contradictory nature of scriptural interpretation.'
+            },
+            {
+                type: 'true-false',
+                question: 'The US intelligence community spent more money on declassification efforts than on classification efforts in 2011.',
+                correct: false,
+                explanation: 'False. The US intelligence community spent significantly more on classification than on declassification efforts, reflecting the massive scale of classification activities.'
+            },
+            {
+                type: 'true-false',
+                question: 'One of the strengths of HUMINT is its ability to provide insight into intentions and plans, which technical INTs often cannot.',
+                correct: true,
+                explanation: 'True. HUMINT\'s key strength is providing access to human thoughts, intentions, and plans that technical collection methods often cannot capture.'
+            },
+            {
+                type: 'true-false',
+                question: 'The National Security Agency (NSA) reportedly intercepts and stores approximately 1.7 million emails, phone calls, and other communications every day.',
+                correct: false,
+                explanation: 'False. The NSA intercepts and stores approximately 1.7 billion (not million) emails, phone calls, and other communications daily, demonstrating the massive scale of modern signals intelligence collection.'
+            },
+
+            // Matching Questions (3)
+            {
+                type: 'matching',
+                question: 'Match each Civil War communication method or cryptologic tool to its primary description or function.',
+                leftColumn: [
+                    'Telegraphy',
+                    'Stager\'s Telegraphic Cipher Book',
+                    'Aerial Telegraphy (Wig-Wag)',
+                    'Cipher Disk',
+                    'Vigenere Square'
+                ],
+                rightColumn: [
+                    'A visual signaling system using flags or torches in prescribed patterns to indicate letters across a battlefield.',
+                    'A device commonly used by the North to encrypt letters before they were visually signaled.',
+                    'A relatively recent technology that allowed for near real-time, two-way communication for military command and control.',
+                    'A route transposition and code system that used word substitution to disguise important words in messages.',
+                    'A cryptologic device used by the South, later in the war, to change individual letters into other letters using a keyword.'
+                ],
+                correctMatches: {
+                    0: 2, // Telegraphy -> near real-time communication
+                    1: 3, // Stager's -> route transposition system
+                    2: 0, // Wig-Wag -> visual signaling system
+                    3: 1, // Cipher Disk -> device used by North
+                    4: 4  // Vigenere -> device used by South
+                },
+                explanation: 'Each communication method and cryptologic tool had specific applications during the Civil War, with the North and South developing different approaches to secure military communications.'
+            },
+            {
+                type: 'matching',
+                question: 'Match each intelligence collection discipline (INT) to its primary focus or characteristic.',
+                leftColumn: [
+                    'GEOINT (Geospatial Intelligence)',
+                    'SIGINT (Signals Intelligence)',
+                    'MASINT (Measurement and Signatures Intelligence)',
+                    'HUMINT (Human Intelligence)',
+                    'OSINT (Open-Source Intelligence)'
+                ],
+                rightColumn: [
+                    'Intelligence derived from imagery and geospatial data, describing features, activities, and locations on Earth.',
+                    'Collection of information by intercepting signals like radio, phone, satellite transmissions, or electronic emissions.',
+                    'Focuses on physical signatures such as vibrations, heat, radiation, chemical traces, or unusual radar reflections to identify activities.',
+                    'Information gathered from people through espionage, clandestine collection, or overt diplomatic reporting.',
+                    'Intelligence built from publicly available information, including news, social media, government reports, and academic work.'
+                ],
+                correctMatches: {
+                    0: 0, // GEOINT -> imagery and geospatial data
+                    1: 1, // SIGINT -> intercepting signals
+                    2: 2, // MASINT -> physical signatures
+                    3: 3, // HUMINT -> information from people
+                    4: 4  // OSINT -> publicly available information
+                },
+                explanation: 'Each intelligence discipline has a distinct focus and methodology, contributing different types of information to the overall intelligence picture.'
+            },
+            {
+                type: 'matching',
+                question: 'Match each of the five types of Jihad with its corresponding definition or action.',
+                leftColumn: [
+                    'Jihad of the Heart (Al Jihad Al Akbar)',
+                    'Jihad by the Tongue',
+                    'Jihad by the Hand',
+                    'Jihad by the Pen',
+                    'Jihad of the Sword (Al Jihad Al Asgar)'
+                ],
+                rightColumn: [
+                    'Combating the temptation of sin and following God\'s commandments; the individual\'s struggle to be more devout and righteous.',
+                    'A struggle through writing and speech, including scholarly study of Islam, legal reasoning (ijtihad), and science.',
+                    'Fighting the enemies of God, typically referred to as holy war.',
+                    'Struggling for good through correct actions, charitable works, and using one\'s wealth, such as going on Hajj or providing funding for prayer.',
+                    'Waging a struggle through truthful speech, proclaiming the call to Islam (da\'wah), and using writing and verbal communication.'
+                ],
+                correctMatches: {
+                    0: 0, // Heart -> combating sin, being devout
+                    1: 4, // Tongue -> truthful speech, da'wah
+                    2: 3, // Hand -> charitable works, correct actions
+                    3: 1, // Pen -> scholarly study, writing
+                    4: 2  // Sword -> fighting enemies, holy war
+                },
+                explanation: 'The five types of Jihad represent different forms of struggle in Islamic thought, ranging from internal spiritual development to external actions and, in some interpretations, warfare.'
+            },
+
+            // Flowchart/Table Completion Questions (4)
+            {
+                type: 'flowchart',
+                question: 'Complete the flowchart of the Agent Acquisition Cycle in Human Intelligence (HUMINT):',
+                template: '1. Targeting/Spotting – Find people with access to desired information or areas. → 2. _____ – Build rapport with the potential source and evaluate their vulnerabilities and motivations. → 3. Recruiting – Make "the pitch" to convince the individual to become an agent, based on motivations like money, ideology, or thrill. → 4. _____ – Manage ongoing meetings, communications, and security of the recruited agent. → 5. Termination – End the relationship with the source when their access or reliability diminishes.',
+                blanks: ['Assessing', 'Handling'],
+                options: ['Assessing', 'Handling', 'Training', 'Monitoring', 'Evaluating', 'Managing', 'Developing', 'Controlling'],
+                explanation: 'The Agent Acquisition Cycle follows a systematic process: Targeting/Spotting → Assessing → Recruiting → Handling → Termination. Each step is crucial for successful human intelligence operations.'
+            },
+            {
+                type: 'table-completion',
+                question: 'Complete the table of Intelligence Collection Disciplines by filling in the missing advantages and disadvantages:',
+                tableData: {
+                    headers: ['INT', 'Main Advantages', 'Main Disadvantages'],
+                    rows: [
+                        ['GEOINT (Geospatial / Imagery)', '[Blank A]', 'Only a snapshot in time; Weather & cover (clouds, camouflage) can block; Costly; Risk of deception/spoofing'],
+                        ['SIGINT (Signals Intelligence)', 'Provides insight into intentions & plans; Can be collected remotely; Lots of material to analyze', '[Blank B]'],
+                        ['MASINT (Measurement & Signatures)', 'Extremely useful for WMD detection & proliferation; Can reveal hidden activities; Can be collected remotely', 'Expensive; Poorly understood by policymakers; Requires complex processing'],
+                        ['HUMINT (Human Intelligence)', 'Provides access to plans, intentions, thoughts; Relatively inexpensive; Can sometimes influence targets', '[Blank C]'],
+                        ['OSINT (Open Source Intelligence)', 'Readily available; Cheap; Great starting point for all collection', 'Overwhelming in volume (wheat vs. chaff); Less likely to reveal secret intentions; Risk of fake news / manipulated info']
+                    ]
+                },
+                blanks: [
+                    'Clear, graphic, easy for leaders to grasp; Familiar to policymakers; Good availability for visible targets (e.g., military exercises).',
+                    'Encrypted or encoded signals; Overwhelming volume; Communication silence, secure lines, or false signals can deceive; Expensive.',
+                    'Risky: lives & politics at stake; Takes years to develop sources; Vulnerable to deception, double agents, false feeds.'
+                ],
+                options: [
+                    'Clear, graphic, easy for leaders to grasp; Familiar to policymakers; Good availability for visible targets (e.g., military exercises).',
+                    'Encrypted or encoded signals; Overwhelming volume; Communication silence, secure lines, or false signals can deceive; Expensive.',
+                    'Risky: lives & politics at stake; Takes years to develop sources; Vulnerable to deception, double agents, false feeds.',
+                    'Provides real-time information; Cost-effective collection method',
+                    'Limited by weather conditions; Requires specialized equipment',
+                    'Difficult to verify accuracy; Language barriers present challenges'
+                ],
+                explanation: 'Each intelligence discipline has distinct advantages and disadvantages that must be considered when planning collection operations and analyzing intelligence products.'
+            },
+            {
+                type: 'table-completion',
+                question: 'Complete the table of Satellite Orbits by providing the Primary Use and Key Challenge for each orbit type:',
+                tableData: {
+                    headers: ['Orbit Type', 'Primary Use', 'Key Challenge'],
+                    rows: [
+                        ['LEO (Low Earth Orbit)', '[Blank A]', 'Limited coverage time per orbit'],
+                        ['GEO (Geosynchronous Orbit)', 'Early-warning satellites and communications', '[Blank B]'],
+                        ['Molniya Orbit (HEO)', '[Blank C]', 'Farther away when lingering, so only broad area collection, not fine detail'],
+                        ['Sun-Synchronous Orbit', 'Consistent lighting for commercial imaging satellites', '[Blank D]']
+                    ]
+                },
+                blanks: [
+                    'Imagery satellites (for better detail because they\'re closer).',
+                    'Very far away, so detail is limited and transmitting data back is harder.',
+                    'More coverage of the Northern Hemisphere (where most land and activity is).',
+                    'Predictable and easy to track — less useful for national security.'
+                ],
+                options: [
+                    'Imagery satellites (for better detail because they\'re closer).',
+                    'Very far away, so detail is limited and transmitting data back is harder.',
+                    'More coverage of the Northern Hemisphere (where most land and activity is).',
+                    'Predictable and easy to track — less useful for national security.',
+                    'Global communications coverage',
+                    'Weather monitoring and prediction',
+                    'High maintenance costs',
+                    'Vulnerable to space debris'
+                ],
+                explanation: 'Different satellite orbits serve different intelligence and military purposes, each with specific advantages and limitations based on their orbital characteristics.'
+            },
+            {
+                type: 'flowchart',
+                question: 'Complete the flowchart illustrating how key problems in US intelligence collection and management lead to negative outcomes:',
+                template: 'Problem 1: _____ (Characterized by the NSA intercepting 1.7 billion emails, phone calls, and other communications daily) → Effect: Analysts lose the ability to pick out what is important, leading to poorer decision-making and cognitive overload. | Problem 2: Overclassification (Evidenced by 76.8 million classification activity events in 2010 and high spending on classification) → Effect: _____ | Problem 3: Circular Reporting (Occurs when agencies collect the same information twice from different sources) → Effect: Adds to inefficiency and can lead analysts to place too much importance on the twice-reported information, even if it\'s from a single original source. | Problem 4: Stovepipes Problem (Each INT operates as its own self-contained pipeline and INTs sometimes compete for tasks and funding) → Effect: _____',
+                blanks: [
+                    'Information Overload',
+                    'Becomes an obstacle to intelligence sharing across agencies, decreases accountability, and precludes open discussion of security policy questions.',
+                    'Creates silos, leading to competition, duplication, and coordination challenges, making it harder to build cross-INT strategies that fuse information effectively.'
+                ],
+                options: [
+                    'Information Overload',
+                    'Becomes an obstacle to intelligence sharing across agencies, decreases accountability, and precludes open discussion of security policy questions.',
+                    'Creates silos, leading to competition, duplication, and coordination challenges, making it harder to build cross-INT strategies that fuse information effectively.',
+                    'Reduces analyst productivity',
+                    'Increases operational costs',
+                    'Limits technological advancement'
+                ],
+                explanation: 'These interconnected problems in US intelligence create a cascade of negative effects that reduce overall intelligence effectiveness and coordination between agencies and disciplines.'
+            }
+        ];
+        
+        let currentQuestions = [];
+        let userAnswers = {};
+        let quizSubmitted = false;
+        let showingAllQuestions = false;
+        let selectedMatching = {};
+        let selectedFlowchartBlank = null;
+        
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        function startRandomQuiz() {
+            const shuffled = shuffleArray(questionBank);
+            currentQuestions = shuffled.slice(0, 20);
+            showingAllQuestions = false;
+            displayQuestions();
+        }
+        
+        function showAllQuestions() {
+            currentQuestions = [...questionBank];
+            showingAllQuestions = true;
+            displayQuestions();
+        }
+        
+        function resetQuiz() {
+            currentQuestions = [];
+            userAnswers = {};
+            quizSubmitted = false;
+            selectedMatching = {};
+            selectedFlowchartBlank = null;
+            document.getElementById('questionsContainer').innerHTML = '';
+            document.getElementById('quizInfo').classList.add('hidden');
+            document.getElementById('submitButton').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+        }
+        
+        function displayQuestions() {
+            const container = document.getElementById('questionsContainer');
+            const quizInfo = document.getElementById('quizInfo');
+            const submitButton = document.getElementById('submitButton');
+            const resultsContainer = document.getElementById('resultsContainer');
+            
+            quizInfo.classList.remove('hidden');
+            submitButton.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+            
+            userAnswers = {};
+            quizSubmitted = false;
+            selectedMatching = {};
+            selectedFlowchartBlank = null;
+            
+            container.innerHTML = currentQuestions.map((question, index) => {
+                return generateQuestionHTML(question, index);
+            }).join('');
+            
+            // Update quiz info
+            const questionCount = showingAllQuestions ? '50' : '20';
+            const mode = showingAllQuestions ? 'Study Mode' : 'Random Quiz';
+            document.getElementById('questionCount').textContent = questionCount;
+            quizInfo.querySelector('h3').textContent = `${mode} Instructions`;
+            
+            updateProgress();
+        }
+        
+        function generateQuestionHTML(question, index) {
+            const questionNumber = index + 1;
+            let optionsHTML = '';
+            
+            switch (question.type) {
+                case 'multiple-choice':
+                    optionsHTML = question.options.map((option, optIndex) => `
+                        <div class="option" onclick="selectOption(${index}, ${optIndex})">
+                            <div class="option-letter">${String.fromCharCode(65 + optIndex)}</div>
+                            <div>${option}</div>
+                        </div>
+                    `).join('');
+                    break;
+                    
+                case 'multi-select':
+                    optionsHTML = question.options.map((option, optIndex) => `
+                        <div class="option checkbox-option" onclick="toggleMultiSelect(${index}, ${optIndex})">
+                            <input type="checkbox" id="q${index}_opt${optIndex}">
+                            <div class="option-letter">${String.fromCharCode(65 + optIndex)}</div>
+                            <div>${option}</div>
+                            <span class="checkmark"></span>
+                        </div>
+                    `).join('');
+                    break;
+                    
+                case 'true-false':
+                    optionsHTML = `
+                        <div class="option" onclick="selectOption(${index}, 0)">
+                            <div class="option-letter">T</div>
+                            <div>True</div>
+                        </div>
+                        <div class="option" onclick="selectOption(${index}, 1)">
+                            <div class="option-letter">F</div>
+                            <div>False</div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'matching':
+                    optionsHTML = `
+                        <div class="matching-container">
+                            <div class="matching-column">
+                                <h4>Column A</h4>
+                                ${question.leftColumn.map((item, idx) => `
+                                    <div class="matching-item" data-left="${idx}" onclick="selectMatching(${index}, 'left', ${idx})">
+                                        ${idx + 1}. ${item}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <div class="matching-column">
+                                <h4>Column B</h4>
+                                ${question.rightColumn.map((item, idx) => `
+                                    <div class="matching-item" data-right="${idx}" onclick="selectMatching(${index}, 'right', ${idx})">
+                                        ${String.fromCharCode(65 + idx)}. ${item}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.9rem;">
+                            <strong>Instructions:</strong> Click one item from Column A, then click the corresponding item from Column B to create a match.
+                        </div>
+                    `;
+                    break;
+                    
+                case 'flowchart':
+                    const templateParts = question.template.split('_____');
+                    optionsHTML = `
+                        <div class="flowchart-container">
+                            <div class="flowchart-content" id="flowchart_${index}">
+                                ${templateParts.map((part, partIndex) => {
+                                    if (partIndex < templateParts.length - 1) {
+                                        return `${part}<span class="flowchart-blank" onclick="selectFlowchartBlank(${index}, ${partIndex})" data-blank="${partIndex}">Click to fill</span>`;
+                                    }
+                                    return part;
+                                }).join('')}
+                            </div>
+                            <div class="flowchart-options">
+                                <h4>Available Options:</h4>
+                                <div class="flowchart-option-grid">
+                                    ${question.options.map((option, optIdx) => `
+                                        <div class="flowchart-option" onclick="fillFlowchartBlank(${index}, '${option.replace(/'/g, "\\'")}', ${optIdx})" data-option="${optIdx}">${option}</div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'table-completion':
+                    optionsHTML = `
+                        <div class="table-container">
+                            <table class="completion-table">
+                                <thead>
+                                    <tr>
+                                        ${question.tableData.headers.map(header => `<th>${header}</th>`).join('')}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${question.tableData.rows.map((row, rowIdx) => `
+                                        <tr>
+                                            ${row.map((cell, cellIdx) => {
+                                                if (cell.startsWith('[Blank')) {
+                                                    const blankId = cell.match(/\[Blank ([A-Z])\]/)[1];
+                                                    return `<td><div class="table-blank" onclick="selectTableBlank(${index}, '${blankId}')" data-blank="${blankId}">Click to fill</div></td>`;
+                                                }
+                                                return `<td>${cell}</td>`;
+                                            }).join('')}
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                            <div class="flowchart-options">
+                                <h4>Available Options:</h4>
+                                <div class="flowchart-option-grid">
+                                    ${question.options.map((option, optIdx) => `
+                                        <div class="flowchart-option" onclick="fillTableBlank(${index}, '${option.replace(/'/g, "\\'")}', ${optIdx})" data-option="${optIdx}">${option}</div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            return `
+                <div class="question-container" id="question_${index}">
+                    <div class="question-header">
+                        <div class="question-number">Question ${questionNumber}</div>
+                        <div class="question-type">${question.type.replace('-', ' ')}</div>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options-container">
+                        ${optionsHTML}
+                    </div>
+                </div>
+            `;
+        }
+        
+        function selectOption(questionIndex, optionIndex) {
+            if (quizSubmitted) return;
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const options = questionContainer.querySelectorAll('.option');
+            
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            userAnswers[questionIndex] = optionIndex;
+            updateProgress();
+        }
+        
+        function toggleMultiSelect(questionIndex, optionIndex) {
+            if (quizSubmitted) return;
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const option = questionContainer.querySelectorAll('.option')[optionIndex];
+            const checkbox = option.querySelector('input[type="checkbox"]');
+            
+            checkbox.checked = !checkbox.checked;
+            option.classList.toggle('selected');
+            
+            if (!userAnswers[questionIndex]) {
+                userAnswers[questionIndex] = [];
+            }
+            
+            if (checkbox.checked) {
+                if (!userAnswers[questionIndex].includes(optionIndex)) {
+                    userAnswers[questionIndex].push(optionIndex);
+                }
+            } else {
+                userAnswers[questionIndex] = userAnswers[questionIndex].filter(idx => idx !== optionIndex);
+            }
+            updateProgress();
+        }
+        
+        function selectMatching(questionIndex, side, itemIndex) {
+            if (quizSubmitted) return;
+            
+            if (!selectedMatching[questionIndex]) {
+                selectedMatching[questionIndex] = {};
+            }
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            
+            if (side === 'left') {
+                questionContainer.querySelectorAll('[data-left]').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                questionContainer.querySelector(`[data-left="${itemIndex}"]`).classList.add('selected');
+                selectedMatching[questionIndex].left = itemIndex;
+            } else {
+                questionContainer.querySelectorAll('[data-right]').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                
+                questionContainer.querySelector(`[data-right="${itemIndex}"]`).classList.add('selected');
+                selectedMatching[questionIndex].right = itemIndex;
+            }
+            
+            if (selectedMatching[questionIndex].left !== undefined && selectedMatching[questionIndex].right !== undefined) {
+                if (!userAnswers[questionIndex]) {
+                    userAnswers[questionIndex] = {};
+                }
+                userAnswers[questionIndex][selectedMatching[questionIndex].left] = selectedMatching[questionIndex].right;
+                
+                // Mark items as matched
+                questionContainer.querySelector(`[data-left="${selectedMatching[questionIndex].left}"]`).classList.add('matched');
+                questionContainer.querySelector(`[data-right="${selectedMatching[questionIndex].right}"]`).classList.add('matched');
+                
+                questionContainer.querySelectorAll('.matching-item').forEach(item => {
+                    item.classList.remove('selected');
+                });
+                selectedMatching[questionIndex] = {};
+                updateProgress();
+            }
+        }
+        
+        function selectFlowchartBlank(questionIndex, blankIndex) {
+            if (quizSubmitted) return;
+            
+            selectedFlowchartBlank = { questionIndex, blankIndex };
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const blanks = questionContainer.querySelectorAll('.flowchart-blank');
+            
+            blanks.forEach(blank => blank.classList.remove('selected'));
+            blanks[blankIndex].classList.add('selected');
+        }
+        
+        function fillFlowchartBlank(questionIndex, value, optionIndex) {
+            if (quizSubmitted || !selectedFlowchartBlank || selectedFlowchartBlank.questionIndex !== questionIndex) return;
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const blank = questionContainer.querySelector(`[data-blank="${selectedFlowchartBlank.blankIndex}"]`);
+            const option = questionContainer.querySelector(`[data-option="${optionIndex}"]`);
+            
+            blank.textContent = value;
+            blank.classList.add('filled');
+            blank.classList.remove('selected');
+            option.classList.add('used');
+            
+            if (!userAnswers[questionIndex]) {
+                userAnswers[questionIndex] = {};
+            }
+            userAnswers[questionIndex][selectedFlowchartBlank.blankIndex] = value;
+            
+            selectedFlowchartBlank = null;
+            updateProgress();
+        }
+        
+        function selectTableBlank(questionIndex, blankId) {
+            if (quizSubmitted) return;
+            
+            selectedFlowchartBlank = { questionIndex, blankIndex: blankId };
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const blanks = questionContainer.querySelectorAll('.table-blank');
+            
+            blanks.forEach(blank => blank.classList.remove('selected'));
+            questionContainer.querySelector(`[data-blank="${blankId}"]`).classList.add('selected');
+        }
+        
+        function fillTableBlank(questionIndex, value, optionIndex) {
+            if (quizSubmitted || !selectedFlowchartBlank || selectedFlowchartBlank.questionIndex !== questionIndex) return;
+            
+            const questionContainer = document.getElementById(`question_${questionIndex}`);
+            const blank = questionContainer.querySelector(`[data-blank="${selectedFlowchartBlank.blankIndex}"]`);
+            const option = questionContainer.querySelector(`[data-option="${optionIndex}"]`);
+            
+            blank.textContent = value;
+            blank.classList.add('filled');
+            blank.classList.remove('selected');
+            option.classList.add('used');
+            
+            if (!userAnswers[questionIndex]) {
+                userAnswers[questionIndex] = {};
+            }
+            userAnswers[questionIndex][selectedFlowchartBlank.blankIndex] = value;
+            
+            selectedFlowchartBlank = null;
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const answeredQuestions = Object.keys(userAnswers).length;
+            const totalQuestions = currentQuestions.length;
+            const percentage = Math.round((answeredQuestions / totalQuestions) * 100);
+            
+            document.getElementById('progressPercent').textContent = `${percentage}%`;
+            document.getElementById('progressFill').style.width = `${percentage}%`;
+        }
+        
+        function submitQuiz() {
+            quizSubmitted = true;
+            let correctAnswers = 0;
+            const typeBreakdown = {
+                'multiple-choice': { correct: 0, total: 0 },
+                'multi-select': { correct: 0, total: 0 },
+                'true-false': { correct: 0, total: 0 },
+                'matching': { correct: 0, total: 0 },
+                'flowchart': { correct: 0, total: 0 },
+                'table-completion': { correct: 0, total: 0 }
+            };
+            
+            currentQuestions.forEach((question, index) => {
+                const questionContainer = document.getElementById(`question_${index}`);
+                let isCorrect = false;
+                
+                typeBreakdown[question.type].total++;
+                
+                switch (question.type) {
+                    case 'multiple-choice':
+                    case 'true-false':
+                        isCorrect = userAnswers[index] === question.correct;
+                        
+                        const options = questionContainer.querySelectorAll('.option');
+                        options.forEach((option, optIndex) => {
+                            if (optIndex === question.correct) {
+                                option.classList.add('correct');
+                            } else if (optIndex === userAnswers[index] && !isCorrect) {
+                                option.classList.add('incorrect');
+                            }
+                        });
+                        break;
+                        
+                    case 'multi-select':
+                        const userAnswer = userAnswers[index] || [];
+                        isCorrect = question.correct.length === userAnswer.length && 
+                                   question.correct.every(idx => userAnswer.includes(idx));
+                        
+                        const multiOptions = questionContainer.querySelectorAll('.option');
+                        multiOptions.forEach((option, optIndex) => {
+                            if (question.correct.includes(optIndex)) {
+                                option.classList.add('correct');
+                            } else if (userAnswer.includes(optIndex)) {
+                                option.classList.add('incorrect');
+                            }
+                        });
+                        break;
+                        
+                    case 'matching':
+                        const userMatches = userAnswers[index] || {};
+                        isCorrect = Object.keys(question.correctMatches).every(leftIdx => 
+                            userMatches[leftIdx] === question.correctMatches[leftIdx]
+                        );
+                        break;
+                        
+                    case 'flowchart':
+                        const userFlowchart = userAnswers[index] || {};
+                        isCorrect = question.blanks.every((correctAnswer, blankIndex) => 
+                            userFlowchart[blankIndex] === correctAnswer
+                        );
+                        break;
+                        
+                    case 'table-completion':
+                        const userTable = userAnswers[index] || {};
+                        isCorrect = question.blanks.every((correctAnswer, blankIndex) => 
+                            userTable[String.fromCharCode(65 + blankIndex)] === correctAnswer
+                        );
+                        break;
+                }
+                
+                if (isCorrect) {
+                    correctAnswers++;
+                    typeBreakdown[question.type].correct++;
+                }
+                
+                // Add explanation
+                const explanationClass = isCorrect ? 'correct' : 'incorrect';
+                const explanationHTML = `
+                    <div class="explanation-section ${explanationClass}">
+                        <div class="explanation-title ${explanationClass}">${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</div>
+                        <p>${question.explanation}</p>
+                    </div>
+                `;
+                questionContainer.insertAdjacentHTML('beforeend', explanationHTML);
+            });
+            
+            // Show results
+            const percentage = Math.round((correctAnswers / currentQuestions.length) * 100);
+            document.getElementById('scoreDisplay').textContent = `${percentage}%`;
+            document.getElementById('scoreText').textContent = `You got ${correctAnswers} out of ${currentQuestions.length} questions correct!`;
+            
+            // Show breakdown by question type
+            const breakdownHTML = Object.entries(typeBreakdown)
+                .filter(([type, data]) => data.total > 0)
+                .map(([type, data]) => {
+                    const typePercentage = Math.round((data.correct / data.total) * 100);
+                    return `
+                        <div class="score-item">
+                            <h4>${type.replace('-', ' ').toUpperCase()}</h4>
+                            <div>${data.correct}/${data.total} (${typePercentage}%)</div>
+                        </div>
+                    `;
+                }).join('');
+            
+            document.getElementById('scoreBreakdown').innerHTML = breakdownHTML;
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            document.getElementById('submitButton').classList.add('hidden');
+            
+            // Scroll to results
+            document.getElementById('resultsContainer').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add any initialization code here
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'975ba62173dea684',t:'MTc1NjI5ODU0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
 
